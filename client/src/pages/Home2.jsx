@@ -10,7 +10,7 @@ import {
   TickerTape,
   Timeline,
 } from "react-ts-tradingview-widgets";
-import Chatbot2 from "./Chatbot";
+import Chatbot2 from "../components/Chatbot";
 import { useLayoutEffect, useRef, useState } from "react";
 
 function Home2({ isSidebarOpen, setIsSidebarOpen }) {
@@ -65,55 +65,6 @@ function Home2({ isSidebarOpen, setIsSidebarOpen }) {
 
   return (
     <div className="h-full w-full">
-      <div className="h-[50px] w-full bg-white flex flex-row justify-between items-center p-4">
-        <div className="flex flex-row">
-          {!isSidebarOpen && (
-            <div
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1 px-2`}
-            >
-              <PanelRightOpen
-                color="gray"
-                className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
-              />
-            </div>
-          )}
-          {!isSidebarOpen && (
-            <div
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1 px-2`}
-            >
-              <SquarePen
-                color="gray"
-                className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
-              />
-            </div>
-          )}
-          <div className="p-1 px-2 text-[gray] font-bold text-lg">StearnAI</div>
-        </div>
-
-        <div className="flex flex-row">
-          <div
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1`}
-          >
-            <Search
-              color="gray"
-              className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
-            />
-          </div>
-          <div
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1`}
-          >
-            <SquarePen
-              color="gray"
-              className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
-            />
-          </div>
-        </div>
-      </div>
-
       <div className="h-[calc(100dvh-50px)] w-full flex flex-row overflow-hidden">
         <div className="flex flex-col w-[50%] h-full">
           <div className="h-full flex flex-col overflow-y-auto p-5">

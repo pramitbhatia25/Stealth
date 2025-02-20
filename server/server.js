@@ -59,7 +59,7 @@ app.post('/analyze', async (req, res) => {
     CryptoCoinsHeatmap: A component showing a heatmap only for crypto currencies.
 
     Symbols:
-    ["BTCUSD", "ETHUSD", "XRPUSD", "LTCUSD", "DOGEUSD", "ADAUSD"]
+    ["BTCUSD", "ETHUSD", "XRPUSD", "LTCUSD", "DOGEUSD", "ADAUSD", "AAPL", "MSFT"]
 
     Example Input:
     Hi! What's up!

@@ -1,158 +1,130 @@
-import { PanelRightClose, PanelRightOpen, Search, SquarePen } from "lucide-react";
-import "./index.css";
-import {
-  AdvancedRealTimeChart,
-  CryptoCoinsHeatmap,
-  CryptoCurrencyMarket,
-  ForexCrossRates,
-  StockHeatmap,
-  SymbolInfo,
-  TickerTape,
-  Timeline,
-} from "react-ts-tradingview-widgets";
-import { useLayoutEffect, useRef, useState } from "react";
-import Chatbot from "./Chatbot";
+import { ChevronDown,Sparkles, X } from "lucide-react";
+import {useState } from "react";
 
 function Home({ isSidebarOpen, setIsSidebarOpen }) {
-  const [extraWidgets, setExtraWidgets] = useState([]);
-  const widgetsEndRef = useRef(null);
 
-  const scrollToBottom = () => {
-    widgetsEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
+    const [isWelcomeOpen, setIsWelcomeOpen] = useState(true)
 
-  useLayoutEffect(() => {
-    setTimeout(() => {
-      scrollToBottom();
-    }, 2000);
-  }, [extraWidgets]);
-  
-  // Components map with default props
-  const componentsMap = {
-    SymbolInfo: {
-      component: SymbolInfo,
-      defaultProps: { colorTheme: "light", autosize: true },
-    },
-    AdvancedRealTimeChart: {
-      component: AdvancedRealTimeChart,
-      defaultProps: { theme: "light", height:500, width: "100%" },
-    },
-    CryptoCurrencyMarket: {
-      component: CryptoCurrencyMarket,
-      defaultProps: { colorTheme: "light", height: 500, width: "100%" },
-    },
-    TickerTape: {
-      component: TickerTape,
-      defaultProps: { colorTheme: "light", autosize: true },
-    },
-    Timeline: {
-      component: Timeline,
-      defaultProps: { theme: "light", height: 500, width: "100%" },
-    },
-    StockHeatmap: {
-      component: StockHeatmap,
-      defaultProps: { colorTheme: "light", height: 500, width: "100%" },
-    },
-    ForexCrossRates: {
-      component: ForexCrossRates,
-      defaultProps: { colorTheme: "light", height: 500, width: "100%" },
-    },
-    CryptoCoinsHeatmap: {
-      component: CryptoCoinsHeatmap,
-      defaultProps: { colorTheme: "light", height: 500, width: "100%" },
-    }
-  };
-
-  return (
-    <div className="h-full w-full">
-      <div className="h-[50px] w-full bg-white flex flex-row justify-between items-center p-4">
-        <div className="flex flex-row">
-          {!isSidebarOpen && (
-            <div
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1 px-2`}
-            >
-              <PanelRightClose
-                color="gray"
-                className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
-              />
-            </div>
-          )}
-          {!isSidebarOpen && (
-            <div
-              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-              className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1 px-2`}
-            >
-              <SquarePen
-                color="gray"
-                className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
-              />
-            </div>
-          )}
-          <div className="p-1 px-2 text-[gray] font-bold text-lg">StearnAI</div>
-        </div>
-
-        <div className="flex flex-row">
-          <div
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1`}
-          >
-            <Search
-              color="gray"
-              className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
-            />
-          </div>
-          <div
-            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1`}
-          >
-            <SquarePen
-              color="gray"
-              className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
-            />
-          </div>
-        </div>
-      </div>
-
-      <div className="h-[calc(100dvh-50px)] w-full flex flex-row overflow-hidden">
-        <div className="flex flex-col w-[50%] h-full">
-          <div className="h-full flex flex-col overflow-y-auto p-5">
-            <div className="h-full w-full">
-
-            {extraWidgets.length !== 0 &&
-              <div className="">              
-                {extraWidgets.map(({ graph_type, symbol }, index) => {
-                  const widgetData = componentsMap[graph_type]; // Get widget based on graph_type
-                  if (!widgetData) return null;
-              
-                  const { component: WidgetComponent, defaultProps } = widgetData;
-                  return (
-                    <div key={index} className="overflow-auto h-fit border rounded-xl my-2">
-                      <WidgetComponent {...defaultProps} symbol={symbol} />
+    return <div className="h-full w-full">
+        <div className="h-[calc(100dvh-50px)] w-full flex flex-col overflow-y-auto">
+            <div className={`p-5 ${isWelcomeOpen ? "" : "hidden"}`}>
+                <div className="bg-purple-100 rounded-2xl px-5 py-3 shadow-xl backdrop-blur-sm hover:border-zinc-600/50 transition-all duration-300">
+                    <div className="flex items-start justify-between">
+                        <div className="text-xl md:text-xl h-6 flex items-center font-bold text-purple-800">
+                            Welcome back, Pramit!
+                        </div>
+                        <div className="flex items-center justify-center w-6 h-6 rounded-full bg-purple-200 cursor-pointer" onClick={() => { setIsWelcomeOpen(false) }}>
+                            <X className="flex-shrink-0 w-4 h-4 text-[purple]" />
+                        </div>
                     </div>
-                  );
-                })}
+                </div>
+            </div>
 
-                <div className="h-1" ref={widgetsEndRef} />
+            <div className="p-5">
+                <div className="border-l-5 border-purple-500 px-5">
+                    <div className="text-lg md:text-xl font-bold">
+                        Today's Cryptocurrency Prices by Market Cap
+                    </div>
+                    <div className="py-5 text-xs md:text-sm flex items-center">
+                        <Sparkles className="mr-2 h-5 w-5 flex-shrink-0 text-purple-500" />
+                        <p className="leading-tight">
+                            The total cryptocurrency market cap stands at
+                            <span className="mx-1 text-[red]">$3.18 trillion</span>, reflecting a
+                            <span className="mx-1 text-[green]"> <ChevronDown className="w-5 h-5 inline" />1.43%</span> drop in the past 24 hours.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div className="p-5 flex overflow-x-auto justify-start scrollbar-hide flex-nowrap min-h-fit">
+                {Array(3)
+                    .fill(0)
+                    .map((_, index) => (
+                        <div
+                            key={index}
+                            className="flex-shrink-0 w-[220px] mx-[10px] md:w-[23%] md:mx-[1%] min-w-[220px] h-[250px] flex items-center justify-center rounded-2xl shadow-lg border border-gray-200 bg-white"
+                        >
+                            Hi
+                        </div>
+                    ))}
+
+                {/* Nested Grid for Small Cards */}
+                <div className="flex-shrink-0 w-[220px] mx-[10px] md:w-[23%] md:mx-[1%] min-w-[220px] h-[250px] grid grid-cols-2 grid-rows-2 gap-4">
+                    {Array(4)
+                        .fill(0)
+                        .map((_, index) => (
+                            <div
+                                key={index}
+                                className="p-4 flex items-center justify-center rounded-2xl shadow-lg border border-gray-200 bg-white"
+                            >
+                                Hi
+                            </div>
+                        ))}
+                </div>
+            </div>
+
+            {/*
+                <div className="p-5">
+                    <div className="border-l-5 border-purple-500 px-5">
+                        <div className="text-lg md:text-2xl font-bold">
+                            Top Gainers
+                        </div>
+                        <div className="py-5 text-xs md:text-sm flex items-center">
+                            <Sparkles className="mr-2 h-5 w-5 flex-shrink-0 text-purple-500" />
+                            <p className="leading-tight">
+                                NVDA stock went up
+                                <span className="mx-1 text-[green]">$3.18 USD</span>, reflecting a
+                                <span className="mx-1 text-[green]"> <ChevronDown className="w-5 h-5 inline" />1.43%</span> gain in the past 24 hours.
+                            </p>
+                        </div>
+                    </div>
                 </div>
 
-            }
-            
-              {extraWidgets.length == 0 && (
-                <div className="text-black border flex items-center justify-center h-full">
-                  Begin Chat To View Analysis -{">"}
+                <div className="p-5 flex overflow-x-auto justify-start scrollbar-hide min-h-fit">
+                    {Array(4)
+                        .fill(0)
+                        .map((_, index) => (
+                            <div
+                                key={index}
+                                className="flex-shrink-0 flex-grow-0 w-[220px] mx-[10px] md:w-[23%] md:mx-[1%] min-w-[220px] h-[150px] flex items-center justify-center rounded-2xl shadow-lg border border-gray-200 bg-white"
+                            >
+                                Hi
+                            </div>
+                        ))}
                 </div>
-              )}
-            </div>
-            </div>
-        </div>
 
-        <div className="h-full flex flex-col w-[50%]">
-          <Chatbot extraWidgets={extraWidgets} setExtraWidgets={setExtraWidgets} />
+                <div className="p-5">
+                    <div className="border-l-5 border-purple-500 px-5">
+                        <div className="text-lg md:text-2xl font-bold">
+                            Top Losers
+                        </div>
+                        <div className="py-5 text-xs md:text-sm flex items-center">
+                            <Sparkles className="mr-2 h-5 w-5 flex-shrink-0 text-purple-500" />
+                            <p className="leading-tight">
+                                NVDA stock went down
+                                <span className="mx-1 text-[red]">$140 USD</span>, reflecting a
+                                <span className="mx-1 text-[red]"> <ChevronDown className="w-5 h-5 inline" />100%</span> loss in the past 24 hours.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="p-5 flex overflow-x-auto justify-start scrollbar-hide min-h-fit">
+                    {Array(4)
+                        .fill(0)
+                        .map((_, index) => (
+                            <div
+                                key={index}
+                                className="flex-shrink-0 flex-grow-0 w-[220px] mx-[10px] md:w-[23%] md:mx-[1%] min-w-[220px] h-[150px] flex items-center justify-center rounded-2xl shadow-lg border border-gray-200 bg-white"
+                            >
+                                Hi
+                            </div>
+                        ))}
+                </div>
+            */}
+
         </div>
-      </div>
     </div>
-  );
 }
 
 export default Home;
