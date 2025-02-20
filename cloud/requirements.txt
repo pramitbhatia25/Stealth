@@ -1,0 +1,8 @@
+flask
+yfinance
+pandas
+google-cloud-bigquery
+google-auth
+google-auth-oauthlib
+google-api-python-client
+datetime
