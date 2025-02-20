@@ -122,5 +122,103 @@ def get_crypto_data():
     return jsonify(crypto_data.to_dict(orient="records"))
 
 
+def get_price_from_bq(symbol):
+    try:
+        # Load credentials from JSON string
+        credentials = service_account.Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT))
+        client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+        
+        query = f'''
+            SELECT CurrentPrice, Datetime 
+            FROM `{TABLE_ID}`
+            WHERE Ticker = "{symbol}"
+            ORDER BY Datetime DESC
+            LIMIT 1
+        '''
+        
+        query_job = client.query(query)
+        result = query_job.result()
+        
+        row = list(result)[0] if result.total_rows > 0 else None
+        if row:
+            return {"Ticker": symbol, "CurrentPrice": row.CurrentPrice, "Datetime": row.Datetime}
+        else:
+            return {"error": "No data found for symbol"}
+    except Exception as e:
+        return {"error": str(e)}
+
+
+@app.route("/get-price/<symbol>", methods=["GET"])
+def get_price(symbol):
+    result = get_price_from_bq(symbol)
+    return jsonify(result)
+
+
+@app.route("/get-all-prices", methods=["GET"])
+def get_all_prices():
+    credentials = service_account.Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT))
+    client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+    query = f"""
+        SELECT Ticker, CurrentPrice FROM `{TABLE_ID}`
+        ORDER BY Datetime DESC;
+    """
+    query_job = client.query(query)
+    result = query_job.result()
+    prices = {row.Ticker: row.CurrentPrice for row in result}
+    return jsonify(prices)
+
+
+import yfinance as yf
+        "BCH-USD", "LINK-USD", "XLM-USD", "UNI-USD", "ATOM-USD", "ALGO-USD", "VET-USD", "ICP-USD", "FIL-USD", "MANA-USD"
+    ]
+    crypto_data = fetch_current_crypto_data(crypto_symbols)
+    parse_and_upload_data_to_bq(crypto_data, TABLE_ID)
+    return jsonify(crypto_data.to_dict(orient="records"))
+
+@app.route("/get-price/<symbol>", methods=["GET"])
+def get_price(symbol):
+    credentials = service_account.Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT))
+    client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+    query = f"""
+        SELECT CurrentPrice FROM `{TABLE_ID}`
+        WHERE Ticker = '{symbol}'
+        ORDER BY Datetime DESC
+        LIMIT 1;
+    """
+    query_job = client.query(query)
+    result = query_job.result()
+    price = [row.CurrentPrice for row in result]
+    return jsonify({"symbol": symbol, "price": price[0] if price else "Not found"})
+
+@app.route("/get-all-prices", methods=["GET"])
+def get_all_prices():
+    credentials = service_account.Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT))
+    client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+    query = f"""
+        SELECT Ticker, CurrentPrice FROM `{TABLE_ID}`
+        ORDER BY Datetime DESC;
+    """
+    query_job = client.query(query)
+    result = query_job.result()
+    prices = {row.Ticker: row.CurrentPrice for row in result}
+    return jsonify(prices)
+
+@app.route("/get-price-history/<symbol>", methods=["GET"])
+def get_price_history(symbol):
+    credentials = service_account.Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT))
+    client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+    query = f"""
+        SELECT Datetime, CurrentPrice FROM `{TABLE_ID}`
+        WHERE Ticker = '{symbol}'
+        ORDER BY Datetime DESC;
+    """
+    query_job = client.query(query)
+    result = query_job.result()
+    history = [{"Datetime": row.Datetime, "CurrentPrice": row.CurrentPrice} for row in result]
+    return jsonify({"symbol": symbol, "history": history})
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
+
+
+
