@@ -284,8 +284,7 @@ def get_price(symbol):
     return jsonify(result)
 
 
-@app.route("/get-all-prices", methods=["GET"])
-def get_latest_prices():
+def get_all_latest_prices():
     credentials = service_account.Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT))
     client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
     
@@ -312,8 +311,12 @@ def get_latest_prices():
         for row in result
     ]
 
-    print(jsonify(prices))
-    
+    return prices
+
+
+@app.route("/get-latest-prices", methods=["GET"])
+def get_latest_prices():
+    prices = get_all_latest_prices()
     return jsonify(prices)
 
 
@@ -338,7 +341,7 @@ def get_news(symbol):
         WHERE 
             LOWER(url) LIKE LOWER('%{symbol}%')
             OR LOWER(title) LIKE LOWER('%{symbol}%')
-        LIMIT 50    
+        LIMIT 10
     """
     
     # Execute the query and retrieve results
@@ -374,17 +377,19 @@ def chat():
     # Parse request JSON
     data = request.get_json()
     prompt = data.get("prompt")
+    price_context = get_all_latest_prices()
+    print(price_context)
 
     if not prompt:
         return jsonify({"error": "Prompt is required"}), 400
 
     # Define system context
-    context = """
+    context = f"""
     You are a helpful Crypto Analyst AI. Based on the given prompt and context and your knowledge, return a JSON response with the following structure:
-    {
+    {{
       "text": "Response to the query",
-      "graph": [{"graph_type", "symbol"}, {"graph_type", "symbol"}],
-    }
+      "graph": [{{"graph_type", "symbol"}}, {{"graph_type", "symbol"}}],
+    }}
     Here are the components and symbols that you can use:
 
     Components:
@@ -404,20 +409,25 @@ def chat():
     Example Input:
     Hi! What's up!
     Example Output:
-    {
+    {{
       "text": "Good Morning! How can I help you today? 🙂",
       "graph": []
-    }
+    }}
 
     Example Input:
     Tell me how's BTC doing today?
     Example Output:
-    {
-      "text": "Sure, I'll share a graph about Crypto Currency Market. From the current data, it looks like Bitcoin is performing well. Let me know if there is anything more I can help with!",
-      "graph": [{"graph_type": "SymbolInfo", "symbol": "BTCUSD"}, {"graph_type": "AdvancedRealTimeChart", "symbol": "BTCUSD"}]
-    }
+    {{
+      "text": "Bitcoin looks to be at $96000 according to my context. For real time information, I'll share a graph about Crypto Currency Market. Let me know if there is anything more I can help with!",
+      "graph": [{{"graph_type": "SymbolInfo", "symbol": "BTCUSD"}}, {{"graph_type": "AdvancedRealTimeChart", "symbol": "BTCUSD"}}]
+    }}
 
     If the user asks in general about a cryptocurrency, return SymbolInfo as the graph with that symbol.
+
+    Here is the current live price context:
+    ${price_context}
+
+    Always use the price context to answer the user's question. Try to include 200 words in your response. Include the price of the symbol in your response.
     """
 
     print("Fetching Data")
