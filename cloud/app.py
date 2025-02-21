@@ -1,19 +1,32 @@
 import yfinance as yf
 import pandas as pd
 from datetime import datetime
-from flask import Flask, jsonify
+from flask import Flask, request, jsonify
 import os
 from flask_cors import CORS
 from google.cloud import bigquery
 from google.oauth2 import service_account
 import json
+from pydantic import BaseModel, ValidationError
+from typing import List
+from openai import OpenAI
 
+openai = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = Flask(__name__)
 TABLE_ID = os.environ.get("TABLE_ID")
 PROJECT_ID = os.environ.get("PROJECT_ID")
 SERVICE_ACCOUNT = os.environ.get("SERVICE_ACCOUNT")
 app = Flask(__name__)
 CORS(app)
+
+class GraphItem(BaseModel):
+    graph_type: str
+    symbol: str
+
+class LLMAPIResponse(BaseModel):
+    text: str
+    graph: List[GraphItem]
+
 
 def fetch_current_crypto_data(tickers):
     data_list = []
@@ -183,6 +196,97 @@ def get_price_history(symbol):
     result = query_job.result()
     history = [{"Datetime": row.Datetime, "CurrentPrice": row.CurrentPrice} for row in result]
     return jsonify({"symbol": symbol, "history": history})
+
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    print("Received Request")
+    
+    # Parse request JSON
+    data = request.get_json()
+    prompt = data.get("prompt")
+
+    if not prompt:
+        return jsonify({"error": "Prompt is required"}), 400
+
+    # Define system context
+    context = """
+    You are a helpful Crypto Analyst AI. Based on the given prompt and context and your knowledge, return a JSON response with the following structure:
+    {
+      "text": "Response to the query",
+      "graph": [{"graph_type", "symbol"}, {"graph_type", "symbol"}],
+    }
+    Here are the components and symbols that you can use:
+
+    Components:
+    SymbolInfo: A symbol info component with default props (colorTheme: "light", autosize: true)
+    AdvancedRealTimeChart: A real-time stock chart with default props (symbol, theme: "light", height: 500)
+    CryptoCurrencyMarket: A cryptocurrency market chart with default props (colorTheme: "light", width: "100%")
+    TickerTape: A ticker tape with default props (colorTheme: "light")
+    Timeline: A component showing news stories about given symbol. (colorTheme: "light")
+    ForexCrossRates: A component showing a graph of all Forex currencies and their cross rates to other currencies.
+    CryptoCoinsHeatmap: A component showing a heatmap only for crypto currencies.
+
+    Symbols:
+
+    ["BTCUSD", "ETHUSD", "BNBUSD", "XRPUSD", "ADAUSD", "SOLUSD", "DOGEUSD", "DOTUSD", "MATICUSD","LTCUSD", 
+    "BCHUSD", "LINKUSD", "XLMUSD", "UNIUSD", "ATOMUSD", "ALGOUSD", "VETUSD", "ICPUSD", "FILUSD", "MANAUSD"]
+
+    Example Input:
+    Hi! What's up!
+    Example Output:
+    {
+      "text": "Good Morning! How can I help you today? 🙂",
+      "graph": []
+    }
+
+    Example Input:
+    Tell me how's BTC doing today?
+    Example Output:
+    {
+      "text": "Sure, I'll share a graph about Crypto Currency Market. From the current data, it looks like Bitcoin is performing well. Let me know if there is anything more I can help with!",
+      "graph": [{"graph_type": "SymbolInfo", "symbol": "BTCUSD"}, {"graph_type": "AdvancedRealTimeChart", "symbol": "BTCUSD"}]
+    }
+
+    If the user asks in general about a cryptocurrency, return SymbolInfo as the graph with that symbol.
+    """
+
+    print("Fetching Data")
+
+    try:
+        # Call OpenAI API
+        completion = openai.beta.chat.completions.parse(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": context},
+                {"role": "user", "content": prompt},
+            ],
+            response_format=LLMAPIResponse,
+        )
+
+        response_content = completion.choices[0].message.content
+
+        try:
+            # Parse AI response as JSON
+            response_json = json.loads(response_content)
+
+            # Validate response with Pydantic
+            validated_response = LLMAPIResponse(**response_json)
+
+            print("Got response")
+            print(validated_response.dict())
+
+            return jsonify(validated_response.dict()), 200
+
+        except (json.JSONDecodeError, ValidationError) as json_error:
+            print("Error parsing response as JSON:", json_error)
+            return jsonify({"error": "Failed to parse the response as JSON"}), 500
+
+    except Exception as error:
+        print("Error generating completion:", error)
+        return jsonify({"error": "Failed to generate completion"}), 500
+
+    print("Completed")
 
 
 if __name__ == "__main__":
