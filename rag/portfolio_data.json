@@ -1,0 +1,87 @@
+{
+    "profile_name": "Avihhan Arya Kumarr",
+    "accounts": [
+      {
+        "account_number": "QWEW132",
+        "stocks": [
+          {
+            "stock_name": "Apple Inc.",
+            "ticker_symbol": "AAPL",
+            "current_price": 175.32,
+            "shares_owned": 50,
+            "market_value": 8766.00,
+            "cost_basis": 150.00,
+            "unrealized_gain_loss": 1266.00,
+            "dividend_yield": 0.006,
+            "pe_ratio": 28.45,
+            "52_week_range": "130.00 - 182.00",
+            "days_change": 1.23,
+            "last_30_days_prices": [
+              170.50, 171.20, 172.80, 173.50, 174.00, 174.50, 175.00, 175.30, 175.20, 175.10,
+              175.00, 174.90, 174.80, 174.70, 174.60, 174.50, 174.40, 174.30, 174.20, 174.10,
+              174.00, 173.90, 173.80, 173.70, 173.60, 173.50, 173.40, 173.30, 173.20, 173.10
+            ]
+          },
+          {
+            "stock_name": "Microsoft Corporation",
+            "ticker_symbol": "MSFT",
+            "current_price": 310.50,
+            "shares_owned": 30,
+            "market_value": 9315.00,
+            "cost_basis": 280.00,
+            "unrealized_gain_loss": 915.00,
+            "dividend_yield": 0.008,
+            "pe_ratio": 32.10,
+            "52_week_range": "240.00 - 315.00",
+            "days_change": 2.10,
+            "last_30_days_prices": [
+              300.00, 301.50, 302.00, 303.00, 304.50, 305.00, 306.00, 307.50, 308.00, 309.00,
+              310.00, 310.50, 310.20, 310.10, 310.00, 309.90, 309.80, 309.70, 309.60, 309.50,
+              309.40, 309.30, 309.20, 309.10, 309.00, 308.90, 308.80, 308.70, 308.60, 308.50
+            ]
+          }
+        ]
+      },
+      {
+        "account_number": "FHTY401",
+        "stocks": [
+          {
+            "stock_name": "Tesla Inc.",
+            "ticker_symbol": "TSLA",
+            "current_price": 800.00,
+            "shares_owned": 10,
+            "market_value": 8000.00,
+            "cost_basis": 700.00,
+            "unrealized_gain_loss": 1000.00,
+            "dividend_yield": 0.000,
+            "pe_ratio": 95.00,
+            "52_week_range": "600.00 - 900.00",
+            "days_change": -5.00,
+            "last_30_days_prices": [
+              810.00, 815.00, 820.00, 825.00, 830.00, 835.00, 840.00, 845.00, 850.00, 855.00,
+              860.00, 865.00, 870.00, 875.00, 880.00, 885.00, 890.00, 895.00, 900.00, 895.00,
+              890.00, 885.00, 880.00, 875.00, 870.00, 865.00, 860.00, 855.00, 850.00, 845.00
+            ]
+          },
+          {
+            "stock_name": "Amazon.com Inc.",
+            "ticker_symbol": "AMZN",
+            "current_price": 3300.00,
+            "shares_owned": 5,
+            "market_value": 16500.00,
+            "cost_basis": 3000.00,
+            "unrealized_gain_loss": 1500.00,
+            "dividend_yield": 0.000,
+            "pe_ratio": 60.00,
+            "52_week_range": "2800.00 - 3500.00",
+            "days_change": 10.00,
+            "last_30_days_prices": [
+              3200.00, 3210.00, 3220.00, 3230.00, 3240.00, 3250.00, 3260.00, 3270.00, 3280.00, 3290.00,
+              3300.00, 3310.00, 3320.00, 3330.00, 3340.00, 3350.00, 3360.00, 3370.00, 3380.00, 3390.00,
+              3400.00, 3390.00, 3380.00, 3370.00, 3360.00, 3350.00, 3340.00, 3330.00, 3320.00, 3310.00
+            ]
+          }
+        ]
+      }
+    ]
+  }
