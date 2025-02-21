@@ -10,3 +10,4 @@ flask_cors
 pydantic
 openai
 python-dotenv
+pyarrow
