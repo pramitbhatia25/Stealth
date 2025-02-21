@@ -90,8 +90,8 @@ function Chat({ isSidebarOpen, setIsSidebarOpen }) {
             }
             
               {extraWidgets.length == 0 && (
-                <div className="text-black border flex items-center justify-center h-full">
-                  Begin Chat To View Analysis -{">"}
+                <div className="text-black border flex items-center justify-center h-full text-gray-500">
+                  Begin Chat To View Analysis
                 </div>
               )}
             </div>
