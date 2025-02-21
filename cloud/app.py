@@ -3,6 +3,7 @@ import pandas as pd
 from datetime import datetime
 from flask import Flask, jsonify
 import os
+from flask_cors import CORS
 from google.cloud import bigquery
 from google.oauth2 import service_account
 import json
@@ -11,7 +12,8 @@ app = Flask(__name__)
 TABLE_ID = os.environ.get("TABLE_ID")
 PROJECT_ID = os.environ.get("PROJECT_ID")
 SERVICE_ACCOUNT = os.environ.get("SERVICE_ACCOUNT")
-
+app = Flask(__name__)
+CORS(app)
 
 def fetch_current_crypto_data(tickers):
     data_list = []
