@@ -1,101 +1,105 @@
-import React, { useState } from "react";
-import axios from "axios";
-import {
-    LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, ScatterChart, Scatter,
-    XAxis, YAxis, Tooltip, CartesianGrid, Legend
-} from "recharts";
+import React, { useState, useEffect } from 'react';
+import Papa from 'papaparse';
+import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 
-const CHART_COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
+const CryptoChart = () => {
+  const [data, setData] = useState([]);
 
-const AIChart = () => {
-    const [query, setQuery] = useState("");
-    const [chartData, setChartData] = useState([]);
-    const [chartType, setChartType] = useState(""); // Stores the AI's suggested chart type
+  // Parse the CSV file
+  useEffect(() => {
+    Papa.parse('cryptoprediction.csv', {
+      download: true,
+      header: true,
+      complete: (result) => {
+        // Transform data into usable format
+        const formattedData = result.data.map(item => ({
+          date: item.date,
+          open: parseFloat(item.open),
+          high: parseFloat(item.high),
+          low: parseFloat(item.low),
+          close: parseFloat(item.close),
+          volume: parseFloat(item.volume),
+          marketCap: parseFloat(item.marketCap),
+          crypto_name: item.crypto_name,
+        }));
+        setData(formattedData);
+      },
+    });
+  }, []);
 
-    const fetchChartData = async () => {
-        try {
-            const aiResponse = {
-                "sql": "SELECT month, SUM(revenue) AS value FROM sales_data GROUP BY month;",
-                "chartType": "line"
-            }
+  // Filter data by coin
+  const filterDataByCoin = (coin) => data.filter(item => item.crypto_name === coin);
 
-            // const response = await axios.post("http://localhost:5000/query", { sql: aiResponse.sql });
-            setChartData([
-                { "month": "Jan", "value": 5000 },
-                { "month": "Feb", "value": 7000 },
-                { "month": "Mar", "value": 6500 }
-            ]
-            );
-            setChartType(aiResponse.chartType); // AI decides chart type
-        } catch (error) {
-            console.error("Error fetching data:", error);
-        }
-    };
-
-    const renderChart = () => {
-        switch (chartType) {
-            case "line":
-                return (
-                    <LineChart width={600} height={300} data={chartData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="month" />
-                        <YAxis />
-                        <Tooltip />
-                        <Line type="monotone" dataKey="value" stroke="#8884d8" />
-                    </LineChart>
-                );
-
-            case "bar":
-                return (
-                    <BarChart width={600} height={300} data={chartData}>
-                        <CartesianGrid strokeDasharray="3 3" />
-                        <XAxis dataKey="category" />
-                        <YAxis />
-                        <Tooltip />
-                        <Bar dataKey="value" fill="#82ca9d" />
-                    </BarChart>
-                );
-
-            case "pie":
-                return (
-                    <PieChart width={400} height={400}>
-                        <Pie data={chartData} dataKey="value" nameKey="category" cx="50%" cy="50%" outerRadius={100} fill="#8884d8">
-                            {chartData.map((_, index) => (
-                                <Cell key={`cell-${index}`} fill={CHART_COLORS[index % CHART_COLORS.length]} />
-                            ))}
-                        </Pie>
-                        <Tooltip />
-                    </PieChart>
-                );
-
-            case "scatter":
-                return (
-                    <ScatterChart width={600} height={300}>
-                        <CartesianGrid />
-                        <XAxis type="number" dataKey="x" name="X" />
-                        <YAxis type="number" dataKey="y" name="Y" />
-                        <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-                        <Scatter name="Data Points" data={chartData} fill="#8884d8" />
-                    </ScatterChart>
-                );
-
-            default:
-                return <p>No chart available. Enter a query to generate a visualization.</p>;
-        }
-    };
-
-    return (
-        <div>
-            <input
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Enter your query..."
-            />
-            <button onClick={fetchChartData}>Generate Chart</button>
-            {chartData.length > 0 && renderChart()}
-        </div>
-    );
+  return (
+    <div>
+      <h2>Crypto Predictions</h2>
+      
+      {/* Bitcoin Chart */}
+      <h3>Bitcoin</h3>
+      <ResponsiveContainer width="80%" height={300}>
+        <LineChart data={filterDataByCoin("Bitcoin")}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="close" stroke="#8884d8" name="Bitcoin Close" />
+        </LineChart>
+      </ResponsiveContainer>
+      
+      {/* Litecoin Chart */}
+      <h3>Litecoin</h3>
+      <ResponsiveContainer width="80%" height={300}>
+        <LineChart data={filterDataByCoin("Litecoin")}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="close" stroke="#82ca9d" name="Litecoin Close" />
+        </LineChart>
+      </ResponsiveContainer>
+      
+      {/* XRP Chart */}
+      <h3>XRP</h3>
+      <ResponsiveContainer width="80%" height={300}>
+        <LineChart data={filterDataByCoin("Xrp")}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="close" stroke="#ffc658" name="XRP Close" />
+        </LineChart>
+      </ResponsiveContainer>
+      
+      {/* Dogecoin Chart */}
+      <h3>Dogecoin</h3>
+      <ResponsiveContainer width="80%" height={300}>
+        <LineChart data={filterDataByCoin("Dogecoin")}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="close" stroke="#ff7300" name="Dogecoin Close" />
+        </LineChart>
+      </ResponsiveContainer>
+      
+      {/* Monero Chart */}
+      <h3>Monero</h3>
+      <ResponsiveContainer width="80%" height={300}>
+        <LineChart data={filterDataByCoin("Monero")}>
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="date" />
+          <YAxis />
+          <Tooltip />
+          <Legend />
+          <Line type="monotone" dataKey="close" stroke="#387908" name="Monero Close" />
+        </LineChart>
+      </ResponsiveContainer>
+    </div>
+  );
 };
 
-export default AIChart;
+export default CryptoChart;

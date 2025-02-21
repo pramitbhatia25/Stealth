@@ -44,7 +44,7 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
           />
         </form>
         <div className="relative w-full flex flex-row gap-5">
-          <div onClick={() => { navigate("/crypto") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/crypto") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
+          <div onClick={() => { navigate("/") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
             Crypto
           </div>
           <div onClick={() => { navigate("/news") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/news") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>

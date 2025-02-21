@@ -18,6 +18,7 @@ import { CosmosWalletConnectors } from "@dynamic-labs/cosmos";
 import { BitcoinWalletConnectors } from "@dynamic-labs/bitcoin";
 import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
 import News from "./pages/News";
+import CryptoChart from "./pages/Test";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -53,8 +54,8 @@ function App() {
               </div>
               <div className="">
                 <Routes>
-                  <Route path="/" element={<Home isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                  <Route path="/crypto" element={<AllCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/" element={<AllCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/test" element={<CryptoChart isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                   <Route path="/chats" element={<Chat isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                   <Route path="/home2" element={<Home2 isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                   <Route path="/news" element={<News isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
