@@ -217,7 +217,7 @@ def get_existing_news_urls(table_id):
 def get_crypto_data():
     crypto_symbols = [
         "BTC-USD", "ETH-USD", "BNB-USD", "XRP-USD", "ADA-USD", "SOL-USD", "DOGE-USD", "DOT-USD", "MATIC-USD", "LTC-USD",
-        "BCH-USD", "LINK-USD", "XLM-USD", "UNI-USD", "ATOM-USD", "ALGO-USD", "VET-USD", "ICP-USD", "FIL-USD", "MANA-USD"
+        "BCH-USD", "LINK-USD", "XLM-USD", "UNI1-USD", "ATOM-USD", "ALGO-USD", "VET-USD", "ICP-USD", "FIL-USD", "MANA-USD"
     ]
     crypto_data = fetch_current_crypto_data(crypto_symbols)
     parse_and_upload_data_to_bq(crypto_data, TABLE_ID)
