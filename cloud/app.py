@@ -11,7 +11,9 @@ from pydantic import BaseModel, ValidationError
 from typing import List
 from openai import OpenAI
 import requests
+from pinecone import Pinecone
 
+pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
 openai = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 app = Flask(__name__)
 TABLE_ID = os.environ.get("TABLE_ID")
@@ -21,6 +23,8 @@ SERVICE_ACCOUNT = os.environ.get("SERVICE_ACCOUNT")
 ALPHAVANTAGE_API_KEY=os.environ.get("ALPHAVANTAGE_API_KEY")
 app = Flask(__name__)
 CORS(app)
+
+index = pc.Index("news-data-embeddings")
 
 class GraphItem(BaseModel):
     graph_type: str
@@ -284,6 +288,50 @@ def get_price(symbol):
     return jsonify(result)
 
 
+@app.route("/get-full-history/<symbol>", methods=["GET"])
+def get_full_history(symbol):
+    try:
+        credentials = service_account.Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT))
+        client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+        
+        query = f"""
+            SELECT 
+                Datetime,
+                CurrentPrice,
+                Open,
+                High,
+                Low,
+                Volume
+            FROM `{TABLE_ID}`
+            WHERE Ticker = '{symbol}'
+            ORDER BY Datetime ASC;
+        """
+        
+        query_job = client.query(query)
+        result = query_job.result()
+        
+        history = [{
+            "datetime": row.Datetime,
+            "price": row.CurrentPrice,
+            "open": row.Open,
+            "high": row.High,
+            "low": row.Low,
+            "volume": row.Volume
+        } for row in result]
+        
+        return jsonify({
+            "symbol": symbol,
+            "history": history,
+            "count": len(history)
+        })
+        
+    except Exception as e:
+        return jsonify({
+            "error": f"Failed to fetch history for {symbol}",
+            "details": str(e)
+        }), 500
+
+
 def get_all_latest_prices():
     credentials = service_account.Credentials.from_service_account_info(json.loads(SERVICE_ACCOUNT))
     client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
@@ -370,6 +418,41 @@ def get_price_history(symbol):
     return jsonify({"symbol": symbol, "history": history})
 
 
+def retrieve_documents(query, top_k=5):
+    try:
+        # Generate query embedding
+        query_embedding = openai.embeddings.create(
+            input=query,
+            model="text-embedding-ada-002"
+        ).data[0].embedding
+
+        # Query Pinecone
+        query_response = index.query(
+            vector=query_embedding,
+            top_k=top_k,
+            include_metadata=True
+        )
+
+        # Extract relevant documents
+        documents = []
+        for match in query_response["matches"]:
+            documents.append({
+                "news_title": match["metadata"].get("title", "N/A"),
+                "news_url": match["metadata"].get("url", "N/A"),
+                "news_source": match["metadata"].get("source", "N/A"),
+                "news_ticker_sentiment_label": match["metadata"].get("ticker_sentiment_label", "N/A"),
+                "news_ticker_sentiment_score": match["metadata"].get("ticker_sentiment_score", "N/A"),
+                "news_time_published": match["metadata"].get("time_published", "N/A"),
+                "news_sentiment_label": match["metadata"].get("sentiment_label", "N/A"),
+                "news_sentiment_score": match["metadata"].get("sentiment_score", "N/A")
+            })
+        
+        return documents
+    except Exception as e:
+        print(f"Error retrieving documents: {str(e)}")
+        return []
+
+
 @app.route('/chat', methods=['POST'])
 def chat():
     print("Received Request")
@@ -382,6 +465,24 @@ def chat():
 
     if not prompt:
         return jsonify({"error": "Prompt is required"}), 400
+
+    # Step 1: Retrieve relevant documents
+    documents = retrieve_documents(prompt)
+    print(f"Retrieved {len(documents)} documents.")
+
+    news_context = "\n\n".join([
+        f"""News Information:
+        - Title: {doc['news_title']}
+        - URL: {doc['news_url']}
+        - Source: {doc['news_source']}
+        - Ticker Sentiment Label: {doc['news_ticker_sentiment_label']}
+        - Ticker Sentiment Score: {doc['news_ticker_sentiment_score']}  
+        - Time Published: {doc['news_time_published']}
+        - Sentiment Label: {doc['news_sentiment_label']}
+        - Sentiment Score: {doc['news_sentiment_score']}"""
+        for doc in documents
+    ])
+
 
     # Define system context
     context = f"""
@@ -427,7 +528,12 @@ def chat():
     Here is the current live price context:
     ${price_context}
 
+    Here are the latest news events that you can cite:
+    ${news_context}
+
     Always use the price context to answer the user's question. Try to include 200 words in your response. Include the price of the symbol in your response.
+    Also, try to cite news specific to that cryptocurrency to answer user's queries, if the user asks for it.
+    If users ask for overview, provide a comprehensive overview citing news sources, showing important graphs and current price data that you have.
     """
 
     print("Fetching Data")
