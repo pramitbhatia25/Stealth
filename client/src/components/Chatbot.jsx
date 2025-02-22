@@ -103,6 +103,18 @@ const Chatbot = ({ extraWidgets, setExtraWidgets }) => {
 
     return (
         <div className="flex flex-col h-full w-full">
+            <div className="bg-blue-50 p-4 mx-4 mt-4 rounded-lg text-sm text-blue-800 w-full self-center">
+                <p className="font-semibold mb-2">Available Chart Types:</p>
+                <ul className="list-disc list-inside">
+                    <li>Symbol Info (with price and basic info)</li>
+                    <li>Advanced Real-Time Charts</li>
+                    <li>Cryptocurrency Market Overview</li>
+                    <li>Ticker Tape</li>
+                    <li>News Timeline</li>
+                    <li>Forex Cross Rates</li>
+                    <li>Crypto Coins Heatmap</li>
+                </ul>
+            </div>
             <div style={{ lineHeight: '1.8' }} className="flex-1 overflow-y-auto p-4 overflow-auto flex flex-col items-center">
                 <div className='max-w-[800px] w-full'>
                     {messages.map((message) => (

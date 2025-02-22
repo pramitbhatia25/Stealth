@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import { SymbolOverview } from "react-ts-tradingview-widgets";
-
+import btc from "../assets/BTC-USD.jpeg"
+import { useNavigate } from "react-router-dom";
+import { Sparkles } from "lucide-react";
 function AllCrypto({ isSidebarOpen, setIsSidebarOpen }) {
     const [prices, setPrices] = useState([]);
-    const [selectedCrypto, setSelectedCrypto] = useState(null);
 
     useEffect(() => {
         const fetchPrices = async () => {
@@ -19,33 +20,37 @@ function AllCrypto({ isSidebarOpen, setIsSidebarOpen }) {
         fetchPrices();
     }, []);
 
+    const navigate = useNavigate();
+
     return (
         <div className="h-full w-full">
             <div className="h-[calc(100dvh-50px)] w-full flex flex-col overflow-y-auto scrollbar-hide">
-                <div className="p-5 flex flex-col md:flex-row h-full">
-                    {/* Left Side: Prices in Table */}
-                    <div className="w-full md:w-[50%] h-full">
-                        <div className="border-l-5 border-purple-500 px-5 h-full overflow-auto">
-                            <div className="text-lg md:text-xl font-bold">Overall Market</div>
-                            <div className="pt-5 pb-2 text-xs md:text-sm">
-                                <table className="min-w-full">
-                                    <thead>
-                                        <tr className="border-b">
-                                            <th className="px-4 py-2 text-left">Ticker</th>
-                                            <th className="px-4 py-2 text-left">Current Price</th>
-                                            <th className="px-4 py-2 text-left">Open</th>
-                                            <th className="px-4 py-2 text-left">High</th>
-                                            <th className="px-4 py-2 text-left">Low</th>
-                                            <th className="px-4 py-2 text-left">Volume</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {prices && prices.length > 0 ? (
-                                            prices.map((crypto, index) => (
+                <div className="w-full h-full p-5">
+                    <div className="border-l-5 border-purple-500 px-5 h-full">
+                        <div className="text-lg md:text-xl font-bold h-[8%]">All Crypto Data</div>
+                        <div className="text-sm h-[7%] items-center flex gap-2"><Sparkles className="text-purple-500 w-6 h-6"/> Click on a coin to learn more and perform a deep analysis.</div>
+                        <div className="pb-2 text-xs md:text-sm border h-[85%] overflow-auto">
+                            <table className="min-w-full">
+                                <thead>
+                                    <tr className="border-b">
+                                        <th className="px-4 py-2 text-left">Ticker</th>
+                                        <th className="px-4 py-2 text-left">Current Price</th>
+                                        <th className="px-4 py-2 text-left">Open</th>
+                                        <th className="px-4 py-2 text-left">High</th>
+                                        <th className="px-4 py-2 text-left">Low</th>
+                                        <th className="px-4 py-2 text-left">Volume</th>
+                                        <th className="px-4 py-2 text-left">Datetime</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {prices && prices.length > 0 ? (
+                                        [...prices]
+                                            .sort((a, b) => a.Ticker.localeCompare(b.Ticker))
+                                            .map((crypto, index) => (
                                                 <tr
                                                     key={index}
                                                     className="cursor-pointer hover:bg-gray-100"
-                                                    onClick={() => setSelectedCrypto(crypto.Ticker)}
+                                                    onClick={() => navigate(`/${crypto.Ticker}`)}
                                                 >
                                                     <td className="px-4 py-2">{crypto.Ticker}</td>
                                                     <td className="px-4 py-2">${crypto.CurrentPrice.toFixed(2)}</td>
@@ -53,35 +58,22 @@ function AllCrypto({ isSidebarOpen, setIsSidebarOpen }) {
                                                     <td className="px-4 py-2">${crypto.High.toFixed(2)}</td>
                                                     <td className="px-4 py-2">${crypto.Low.toFixed(2)}</td>
                                                     <td className="px-4 py-2">{crypto.Volume}</td>
+                                                    <td className="px-4 py-2">
+                                                        {new Date(new Date(crypto.Datetime).getTime() - (5 * 60 * 60 * 1000)).toLocaleString('en-US', {
+                                                            timeZone: 'America/New_York',
+                                                            dateStyle: 'medium',
+                                                            timeStyle: 'medium'
+                                                        })}
+                                                    </td>
                                                 </tr>
                                             ))
-                                        ) : (
-                                            <tr>
-                                                <td colSpan="6" className="text-center px-4 py-2">Loading...</td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    {/* Right Side: Crypto Summary (Widget) */}
-                    <div className="w-full md:w-[50%] h-full overflow-auto">
-                        <div className="border-l-5 border-purple-500 px-5 h-full">
-                            <div className="text-lg md:text-xl font-bold">Crypto Summary For {selectedCrypto}</div>
-                            <div className="h-[500px] w-full border rounded-xl my-[20px] overflow-hidden">
-                                {selectedCrypto ? (
-                                    <SymbolOverview
-                                        colorTheme="light"
-                                        hideDateRanges={true}
-                                        symbols={[selectedCrypto.split("-").join("")]}
-                                        autosize
-                                    />
-                                ) : (
-                                    <div className="m-5 text-gray-500">Select a cryptocurrency to view details</div>
-                                )}
-                            </div>
+                                    ) : (
+                                        <tr>
+                                            <td colSpan="6" className="text-center text-gray-500 px-4">Loading...</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

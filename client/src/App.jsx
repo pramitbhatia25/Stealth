@@ -4,7 +4,6 @@ import { useState } from "react";
 import Home2 from "./pages/Home2";
 import CustomNavbar from "./components/Navbar";
 import Chat from "./pages/Chat";
-import Home from "./pages/Home";
 import AllCrypto from "./pages/AllCrypto";
 import {
   DynamicContextProvider,
@@ -17,8 +16,8 @@ import { EclipseWalletConnectors } from "@dynamic-labs/eclipse";
 import { CosmosWalletConnectors } from "@dynamic-labs/cosmos";
 import { BitcoinWalletConnectors } from "@dynamic-labs/bitcoin";
 import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
-import News from "./pages/News";
 import CryptoChart from "./pages/Test";
+import SpecificCrypto from "./pages/SpecificCrypto";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -58,7 +57,7 @@ function App() {
                   <Route path="/test" element={<CryptoChart isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                   <Route path="/chats" element={<Chat isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                   <Route path="/home2" element={<Home2 isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                  <Route path="/news" element={<News isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                 </Routes>
               </div>
             </div>

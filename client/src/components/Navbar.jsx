@@ -47,9 +47,6 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
           <div onClick={() => { navigate("/") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
             Crypto
           </div>
-          <div onClick={() => { navigate("/news") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/news") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
-            News
-          </div>
           <div onClick={() => { navigate("/chats") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/chats") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
             <Sparkles className="w-4 h-4 flex-shrink-0 mr-2 text-purple-500" />
             Ask AI
