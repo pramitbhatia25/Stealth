@@ -614,7 +614,8 @@ def chat():
             messages=[
                 {"role": "system", "content": context},
                 {"role": "user", "content": prompt},
-            ]
+            ],
+            response_format=LLMAPIResponse
         )
 
         response_content = completion.choices[0].message.content
