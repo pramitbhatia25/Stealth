@@ -453,6 +453,75 @@ def retrieve_documents(query, top_k=5):
         return []
 
 
+@app.route('/news_summary/<symbol>', methods=['POST'])
+def news_summary(symbol):
+    print("Received Request")
+    
+    # Parse request JSON
+    data = request.get_json()
+    prompt = data.get("prompt")
+    price_context = get_all_latest_prices()
+    print(price_context)
+
+    if not prompt:
+        return jsonify({"error": "Prompt is required"}), 400
+
+    # Step 1: Retrieve relevant documents
+    documents = retrieve_documents(prompt)
+    print(f"Retrieved {len(documents)} documents.")
+
+    news_context = "\n\n".join([
+        f"""News Information:
+        - Title: {doc['news_title']}
+        - URL: {doc['news_url']}
+        - Source: {doc['news_source']}
+        - Ticker Sentiment Label: {doc['news_ticker_sentiment_label']}
+        - Ticker Sentiment Score: {doc['news_ticker_sentiment_score']}  
+        - Time Published: {doc['news_time_published']}
+        - Sentiment Label: {doc['news_sentiment_label']}
+        - Sentiment Score: {doc['news_sentiment_score']}"""
+        for doc in documents
+    ])
+
+
+    # Define system context
+    context = f"""
+    You are a Crypto News Summarizer. Based on the given prompt and context and your knowledge, return a JSON response with the following structure:
+    {{
+      "text": "Summary of the most recent crypto news for this symbol: {symbol}",
+    }}
+
+    Here is the current live price context:
+    ${price_context}
+
+    Here are the latest news events that you can cite:
+    ${news_context}
+
+    Your response should not contain bolded or highlighted words. Write plain text summary. Keep the summary to 100 words and cite specific news articles and current live prices.
+    """
+
+    print("Fetching Data")
+
+    try:
+        completion = openai.chat.completions.create(
+            model="gpt-4",
+            messages=[
+                {"role": "system", "content": context},
+                {"role": "user", "content": prompt},
+            ]
+        )
+
+        response_content = completion.choices[0].message.content
+        
+        # Parse the response content as JSON
+        parsed_response = json.loads(response_content)
+        return jsonify(parsed_response), 200  # Return the parsed JSON response
+
+    except Exception as error:
+        print("Error generating completion:", error)
+        return jsonify({"error": "Failed to generate completion", "text": ""}), 500
+
+
 @app.route('/chat', methods=['POST'])
 def chat():
     print("Received Request")
@@ -540,13 +609,12 @@ def chat():
 
     try:
         # Call OpenAI API
-        completion = openai.beta.chat.completions.parse(
-            model="gpt-4o-mini",
+        completion = openai.chat.completions.create(
+            model="gpt-4",
             messages=[
                 {"role": "system", "content": context},
                 {"role": "user", "content": prompt},
-            ],
-            response_format=LLMAPIResponse,
+            ]
         )
 
         response_content = completion.choices[0].message.content
