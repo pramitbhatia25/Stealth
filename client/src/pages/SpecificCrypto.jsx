@@ -19,7 +19,7 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
     const fetchNews = async (search) => {
         setLoading(true);
         try {
-            const response = await fetch(`http://127.0.0.1:5000/get-news/${search}`);
+            const response = await fetch(`https://stock-data-1032123744845.us-central1.run.app/get-news/${search}`);
             const data = await response.json();
             setNewsData(data);
         } catch (error) {

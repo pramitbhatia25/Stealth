@@ -20,7 +20,7 @@ function HistoricalChart() {
         const fetchHistoricalData = async () => {
             try {
                 const response = await fetch(
-                    "http://127.0.0.1:5000/get-full-history/BTC-USD"
+                    "https://stock-data-1032123744845.us-central1.run.app/get-full-history/BTC-USD"
                 );
                 const data = await response.json();
                 // Transform the data for Recharts
