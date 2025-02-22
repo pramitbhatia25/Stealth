@@ -609,13 +609,13 @@ def chat():
 
     try:
         # Call OpenAI API
-        completion = openai.chat.completions.create(
-            model="gpt-4",
+        completion = openai.beta.chat.completions.parse(
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": context},
                 {"role": "user", "content": prompt},
             ],
-            response_format=LLMAPIResponse
+            response_format=LLMAPIResponse,
         )
 
         response_content = completion.choices[0].message.content
