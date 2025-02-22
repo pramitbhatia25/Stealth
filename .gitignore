@@ -1,0 +1,6 @@
+# Ignore virtual environment folders
+rag/env/
+rag/venv/
+rag/myenv/
+rag/.venv/
+rag/.env
