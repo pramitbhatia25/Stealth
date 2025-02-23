@@ -41,7 +41,7 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
                     prompt: `Generate a summary of the latest news for ${symbol}`,
                 }),
             });
-            
+
             const data = await response.json();
             setNewsDataSummary(data.text);
         } catch (error) {
@@ -55,30 +55,28 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
             <div className="h-[calc(100dvh-50px)] w-full flex flex-col overflow-y-auto scrollbar-hide">
                 <div className="w-full h-fit p-5">
                     <div className="border-l-5 border-purple-500 px-5 h-fit">
-                        <div className="text-lg md:text-xl font-bold h-[50px]">
+                        <div className="text-lg md:text-lg font-bold h-fit mb-1">
                             Crypto Details: {symbol}
                         </div>
                         <div className="flex gap-4 h-fit">
                             <div className="h-fit w-[60%]">
-                            <h2 className="text-lg font-semibold mb-4">Overview</h2>
-                            <div className='h-[400px] overflow-hidden'>
-                                    <AdvancedRealTimeChart theme="light" allow_symbol_change={false} symbol={cleanSymbol} autosize></AdvancedRealTimeChart>
+                                <div className='h-[250px] overflow-hidden flex justify-around'>
+                                    <div className='w-[45%]'>
+                                        <SymbolInfo theme="light" allow_symbol_change={false} symbol={cleanSymbol} autosize></SymbolInfo>
+                                    </div>
+                                    <div className='w-[45%]'>
+                                        <CompanyProfile theme="light" allow_symbol_change={false} symbol={cleanSymbol} autosize></CompanyProfile>
+                                    </div>
                                 </div>
-                                <div className='text-lg font-semibold mb-4 mt-10'>
-                                    About
-                                </div>
-                                <div className='h-[200px] border overflow-hidden'>
-                                    <CompanyProfile colorTheme="light" symbol={cleanSymbol} autosize></CompanyProfile>
-                                </div>
-                                <div className='mt-4'>
+                                <div className='mt-0'>
                                     <HistoricalChart />
                                 </div>
                             </div>
                             <div className="w-[40%] h-fit overflow-auto scrollbar-hide">
                                 <h2 className="text-lg font-semibold mb-4">Latest News</h2>
                                 <div className="flex flex-col gap-3 my-5">
-                                    <button 
-                                        onClick={() => generateSummary()} 
+                                    <button
+                                        onClick={() => generateSummary()}
                                         className="flex items-center gap-2 px-4 py-2 bg-purple-500 text-white rounded-lg hover:bg-purple-600 transition-colors"
                                     >
                                         <Sparkles className="h-5 w-5" />
@@ -86,7 +84,7 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
                                     </button>
                                     {newsDataSummary != "" && (
                                         <div className="mt-3 flex gap-2">
-                                            <Sparkles className='h-6 w-6 text-purple-500 flex-shrink-0'/>
+                                            <Sparkles className='h-6 w-6 text-purple-500 flex-shrink-0' />
                                             <div className='text-sm'>
                                                 {newsDataSummary}
                                             </div>
@@ -100,8 +98,8 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
                                         {newsData
                                             .sort((a, b) => new Date(b.time_published) - new Date(a.time_published))
                                             .map((news, index) => (
-                                            <div key={index} className="border rounded-lg p-4 hover:bg-gray-50">
-                                                <div className="text-gray-500 flex flex-row gap-3 items-center text-xs">
+                                                <div key={index} className="border rounded-lg p-4 hover:bg-gray-50">
+                                                    <div className="text-gray-500 flex flex-row gap-3 items-center text-xs">
                                                         <div>{news.source}</div>
                                                         <div className="border w-1 h-1 mt-1 bg-[gray] rounded-full" />
                                                         <div>{new Date(news.time_published).toLocaleString()}</div>
@@ -113,9 +111,9 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
                                                         {news.sentiment_label} -{" "}
                                                         {news.sentiment_score.toFixed(2)}
                                                     </div>
-                                                <p className="text-xs text-gray-400 mt-2">{new Date(news.time_published).toLocaleDateString()}</p>
-                                            </div>
-                                        ))}
+                                                    <p className="text-xs text-gray-400 mt-2">{new Date(news.time_published).toLocaleDateString()}</p>
+                                                </div>
+                                            ))}
                                     </div>
                                 )}
                             </div>

@@ -99,17 +99,13 @@ function HistoricalChart() {
     };
 
     return (
-        <div className="bg-white p-4 rounded-lg shadow-lg">
-            <div className="mb-4">
-                <h2 className="text-xl font-bold">Bitcoin Historical Data</h2>
-                <p className="text-sm text-gray-500">
-                    Total data points: {historicalData.count}
-                </p>
+        <div className="bg-white">
+            <div className="mb-0">
+                <h2 className="text-lg mt-5 font-semibold">Bitcoin Historical Data</h2>
             </div>
 
             {/* Price Chart */}
             <div className="h-[300px] mb-8">
-                <h3 className="text-lg font-semibold">Price History</h3>
                 <ResponsiveContainer width="100%" height="100%">
                     <ComposedChart
                         data={historicalData.history}
