@@ -22,7 +22,7 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
           </div>
         )}
         {!isSidebarOpen && (
-          <div className="p-1 px-2 text-purple-500 font-bold text-xl cursor-pointer" onClick={() => { navigate("/") }}>bullRunAI</div>
+          <div className="p-1 px-2 text-purple-500 font-bold text-xl cursor-pointer" onClick={() => { navigate("/") }}>BullRunAI</div>
         )}
       </div>
 

@@ -10,8 +10,12 @@ import {
     Tooltip,
     Legend,
 } from "recharts";
+import btc from "../assets/BTC-USD.png";
+import ltc from "../assets/LTC-USD.png";
+import eth from "../assets/ETH-USD.png";
+import doge from "../assets/DOGE-USD.png";
 
-function HistoricalChart() {
+function HistoricalChart({symbol}) {
     const [historicalData, setHistoricalData] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -20,12 +24,12 @@ function HistoricalChart() {
         const fetchHistoricalData = async () => {
             try {
                 const response = await fetch(
-                    "https://stock-data-1032123744845.us-central1.run.app/get-full-history/BTC-USD"
+                    `https://stock-data-1032123744845.us-central1.run.app/get-full-history/${symbol}`
                 );
                 const data = await response.json();
                 // Transform the data for Recharts
                 const transformedData = data.history.map((item) => ({
-                    date: new Date(item.datetime).toLocaleTimeString([], {
+                    date: new Date(new Date(item.datetime).getTime() - (5 * 60 * 60 * 1000)).toLocaleTimeString([], {
                         hour: "2-digit",
                         minute: "2-digit",
                         second: "2-digit",
@@ -98,6 +102,16 @@ function HistoricalChart() {
         return null;
     };
 
+    const getImageForSymbol = (symbol) => {
+        const imageMap = {
+            'BTC-USD': btc,
+            'LTC-USD': ltc,
+            'ETH-USD': eth,
+            'DOGE-USD': doge
+        };
+        return imageMap[symbol];
+    };
+
     return (
         <div className="bg-white">
             <div className="mb-0">
@@ -139,6 +153,17 @@ function HistoricalChart() {
                 </ResponsiveContainer>
             </div>
 
+            <div className="my-10 h-fit">
+                {['BTC-USD', 'LTC-USD', 'ETH-USD', 'DOGE-USD'].includes(symbol) && (
+                    <div className='mt-0 w-full'>
+                        <img
+                            src={getImageForSymbol(symbol)}
+                            alt={`${symbol} Price Prediction`}
+                            className="w-full h-50 scale-100 rounded-lg"
+                        />
+                    </div>
+                )}
+            </div>
             {/* Volume Chart */}
             <div className="h-[300px]">
                 <h3 className="text-lg font-semibold">Volume History</h3>

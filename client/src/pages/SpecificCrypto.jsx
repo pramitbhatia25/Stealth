@@ -69,7 +69,7 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
                                     </div>
                                 </div>
                                 <div className='mt-0'>
-                                    <HistoricalChart />
+                                    <HistoricalChart symbol={symbol}/>
                                 </div>
                             </div>
                             <div className="w-[40%] h-fit overflow-auto scrollbar-hide">
