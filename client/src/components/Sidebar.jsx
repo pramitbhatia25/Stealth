@@ -13,7 +13,7 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
 
     return (
         <nav
-            className={`absolute left-0 top-0 h-full w-full md:w-[15dvw] light:bg-black light:bg-[#f9f9f9] transition-transform duration-300 overflow-hidden ${isSidebarOpen ? "transform-none" : "transform -translate-x-full"}`}
+            className={`absolute left-0 top-0 h-full w-full md:w-[15dvw] bg-[#f9f9f9] transition-transform duration-300 overflow-hidden ${isSidebarOpen ? "transform-none" : "transform -translate-x-full"}`}
         >
             <div className="h-[50px] w-full dark:bg-black light:bg-[#f9f9f9] flex flex-row items-center p-4">
 
