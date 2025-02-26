@@ -219,13 +219,24 @@ def get_existing_news_urls(table_id):
 
 @app.route("/fetch-crypto-data", methods=["GET"])
 def get_crypto_data():
-    crypto_symbols = [
+
+    symbols = [
+        "AAPL", "NVDA", "MSFT", "AMZN", "GOOG", "META", "TSLA", "AVGO", "LLY",
+        "WMT", "JPM", "V", "XOM", "MA", "UNH", "HD", "PG", "CVX", "KO",
+        "PEP", "MRK", "ABBV", "PFE", "BAC", "CSCO", "ACN", "NFLX", "INTC", "CMCSA",
+        "T", "VZ", "ADBE", "CRM", "NKE", "ORCL", "ABT", "MCD", "DHR", "WFC",
+        "MDT", "BMY", "TXN", "NEE", "PM", "LIN", "HON", "QCOM", "COST", "AMGN",
         "BTC-USD", "ETH-USD", "BNB-USD", "XRP-USD", "ADA-USD", "SOL-USD", "DOGE-USD", "DOT-USD", "MATIC-USD", "LTC-USD",
         "BCH-USD", "LINK-USD", "XLM-USD", "UNI1-USD", "ATOM-USD", "ALGO-USD", "VET-USD", "ICP-USD", "FIL-USD", "MANA-USD"
-    ]
-    crypto_data = fetch_current_crypto_data(crypto_symbols)
-    parse_and_upload_data_to_bq(crypto_data, TABLE_ID)
-    return jsonify(crypto_data.to_dict(orient="records"))
+    ];
+
+
+    
+    
+    data = fetch_current_crypto_data(symbols)
+    parse_and_upload_data_to_bq(data, TABLE_ID)
+
+    return jsonify(data.to_dict(orient="records"))
 
 
 @app.route("/fetch-crypto-news", methods=["GET"])
