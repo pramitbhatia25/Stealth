@@ -1,5 +1,5 @@
 import { Divider } from "@nextui-org/react";
-import { BarChart, BarChart2, BarChart2Icon, BarChart3Icon, BarChart4Icon, BarChartBigIcon, BarChartIcon, Bitcoin, Calendar, Clock, Folder, Home, HomeIcon, Layers, Newspaper, PanelRightOpen, Plus, Search, Sparkles, SquarePen, TrendingUp } from "lucide-react";
+import { BarChart, BarChart2, BarChart2Icon, BarChart3Icon, BarChart4Icon, BarChartBigIcon, BarChartIcon, Bitcoin, Calendar, ChartNoAxesCombined, Clock, Folder, Home, HomeIcon, Layers, Newspaper, PanelRightOpen, Plus, Search, Sparkles, SquarePen, TrendingUp } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
@@ -22,55 +22,49 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                     <PanelRightOpen color="#353839" className="w-[1.5dvw] flex-shrink-0 min-w-[20px]" />
                 </div>
                 {isSidebarOpen && (
-                    <div className="p-1 px-2 text-purple-500 font-bold text-xl">stealthAI</div>
+                    <div className="p-1 px-2 text-purple-500 font-bold text-xl cursor-pointer" onClick={() => { navigate("/") }}>BullRunAI</div>
                 )}
 
             </div>
             <ul className="space-y-2 p-4 h-[calc(100dvh-50px)] overflow-auto">
                 <li className="space-y-2">
-                    <div
+                <div
                         onClick={() => {onBtnClick("/")}}
                         className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
-                        <HomeIcon color="gray" className="w-5 h-5 flex-shrink-0" />
-                        <span className="text-sm">Home</span>
+                        <Home color="gray" className="w-5 h-5 flex-shrink-0" />
+                        <span className="text-sm">Overview</span>
                     </div>
                     <div
-                        onClick={() => {onBtnClick("/stocks")}}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/stocks") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
+                        onClick={() => {onBtnClick("/stock")}}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/stock") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
-                        <BarChartBigIcon color="gray" className="w-5 h-5 flex-shrink-0" />
+                        <ChartNoAxesCombined color="gray" className="w-5 h-5 flex-shrink-0" />
                         <span className="text-sm">Stocks</span>
                     </div>
                     <div
-                        onClick={() => {onBtnClick("/crypto")}}
+                        onClick={() => { onBtnClick("/crypto") }}
                         className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/crypto") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
                         <Bitcoin color="gray" className="w-5 h-5 flex-shrink-0" />
                         <span className="text-sm">Crypto</span>
                     </div>
+                    {/*
                     <div
-                        onClick={() => {onBtnClick("/news")}}
+                        onClick={() => { onBtnClick("/news") }}
                         className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/news") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
                         } flex flex-row justify-start px-2 py-2`}
                     >
                         <Newspaper color="gray" className="w-5 h-5 flex-shrink-0" />
                         <span className="text-sm">News</span>
                     </div>
+                    */}
                     <div
-                        onClick={() => {onBtnClick("/watchlist")}}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/watchlist") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
-                    } flex flex-row justify-start px-2 py-2`}
-                    >
-                        <Plus color="gray" className="w-5 h-5 flex-shrink-0" />
-                        <span className="text-sm">Watchlist</span>
-                    </div>
-                    <div
-                        onClick={() => {onBtnClick("/chats")}}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/chats") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
+                        onClick={() => { onBtnClick("/chat") }}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/chat") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
                 } flex flex-row justify-start px-2 py-2`}
                     >
                         <Sparkles className="w-5 h-5 flex-shrink-0 text-purple-500" />

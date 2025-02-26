@@ -65,7 +65,7 @@ const Chatbot = ({ extraWidgets, setExtraWidgets }) => {
         console.log("A")
 
         try {
-            const response = await fetch('https://stock-data-1032123744845.us-central1.run.app/chat', {
+            const response = await fetch('http://127.0.0.1:5000/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

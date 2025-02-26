@@ -13,7 +13,7 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
         {!isSidebarOpen && (
           <div
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`md:hidden cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1 px-2`}
+            className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1 px-2`}
           >
             <PanelRightClose
               color="#353839"
@@ -26,8 +26,8 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
         )}
       </div>
 
-      <div className="md:flex hidden px-4 gap-5 mx-auto w-fit flex-shrink-0">
-        <form className="relative w-fit flex-shrink-0 min-w-[300px]">
+      <div className="md:flex hidden mx-auto w-fit flex-shrink-0">
+        <form className="relative w-fit flex-shrink-0 min-w-[500px]">
           <button
             type="submit"
             className="absolute left-2 top-1 text-purple-500 p-1 rounded-full transition-colors"
@@ -43,18 +43,8 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
             className="w-full bg-white text-black rounded-full py-2 pl-10 pr-4 text-xs border border-gray-200 focus:outline-none focus:ring-0 shadow-md rounded-bottom-shadow"
           />
         </form>
-        <div className="relative w-full flex flex-row gap-5">
-          <div onClick={() => { navigate("/") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
-            Crypto
-          </div>
-          <div onClick={() => { navigate("/chats") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/chats") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
-            <Sparkles className="w-4 h-4 flex-shrink-0 mr-2 text-purple-500" />
-            Ask AI
-          </div>
-        </div>
       </div>
 
-      {/* 
       <div className="flex gap-5 flex items-center justify-center">
         <div className="text-black hidden md:flex hover:text-purple-500 hover:cursor-pointer">
           <svg
@@ -75,7 +65,6 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
           <DynamicWidget variant='modal' />
         </div>
       </div>
-*/}
     </div>
   );
 }

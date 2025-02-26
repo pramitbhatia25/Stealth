@@ -1,13 +1,10 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import { useState } from "react";
-import Home2 from "./pages/Home2";
+import { useEffect, useState } from "react";
 import CustomNavbar from "./components/Navbar";
 import Chat from "./pages/Chat";
-import AllCrypto from "./pages/AllCrypto";
-import {
-  DynamicContextProvider,
-} from "@dynamic-labs/sdk-react-core";
+import Crypto from "./pages/Crypto"
+import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
 import { StarknetWalletConnectors } from "@dynamic-labs/starknet";
 import { SolanaWalletConnectors } from "@dynamic-labs/solana";
 import { FlowWalletConnectors } from "@dynamic-labs/flow";
@@ -16,11 +13,23 @@ import { EclipseWalletConnectors } from "@dynamic-labs/eclipse";
 import { CosmosWalletConnectors } from "@dynamic-labs/cosmos";
 import { BitcoinWalletConnectors } from "@dynamic-labs/bitcoin";
 import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
-import CryptoChart from "./pages/Test";
 import SpecificCrypto from "./pages/SpecificCrypto";
+import Stock from "./pages/Stock";
+import Overview from "./pages/Overview";
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSidebarOpen(window.innerWidth >= 768); // md is typically 768px+
+    };
+
+    handleResize(); // Set initial state
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <DynamicContextProvider
@@ -53,11 +62,13 @@ function App() {
               </div>
               <div className="">
                 <Routes>
-                  <Route path="/" element={<AllCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                  <Route path="/test" element={<CryptoChart isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                  <Route path="/chats" element={<Chat isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                  <Route path="/home2" element={<Home2 isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                  <Route path="/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/" element={<Overview isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/stock" element={<Stock isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/crypto" element={<Crypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/news" element={<Crypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/chat" element={<Chat isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/crypto/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                  <Route path="/stock/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                 </Routes>
               </div>
             </div>
