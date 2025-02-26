@@ -515,7 +515,7 @@ def news_summary(symbol):
 
     try:
         completion = openai.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o-mini",
             messages=[
                 {"role": "system", "content": context},
                 {"role": "user", "content": prompt},
@@ -566,7 +566,7 @@ def chat():
 
     # Define system context
     context = f"""
-    You are a helpful Crypto Analyst AI. Based on the given prompt and context and your knowledge, return a JSON response with the following structure:
+    You are a helpful Financial Market Analyst AI. Based on the given prompt and context and your knowledge, return a JSON response with the following structure:
     {{
       "text": "Response to the query",
       "graph": [{{"graph_type", "symbol"}}, {{"graph_type", "symbol"}}],
@@ -583,10 +583,17 @@ def chat():
     CryptoCoinsHeatmap: A component showing a heatmap only for crypto currencies.
 
     Symbols:
-
     ["BTCUSD", "ETHUSD", "BNBUSD", "XRPUSD", "ADAUSD", "SOLUSD", "DOGEUSD", "DOTUSD", "MATICUSD","LTCUSD", 
     "BCHUSD", "LINKUSD", "XLMUSD", "UNIUSD", "ATOMUSD", "ALGOUSD", "VETUSD", "ICPUSD", "FILUSD", "MANAUSD"]
 
+    ["AAPL", "NVDA", "MSFT", "AMZN", "GOOG", "META", "TSLA", "AVGO", "LLY",
+    "WMT", "JPM", "V", "XOM", "MA", "UNH", "HD", "PG", "CVX", "KO",
+    "PEP", "MRK", "ABBV", "PFE", "BAC", "CSCO", "ACN", "NFLX", "INTC", "CMCSA",
+    "T", "VZ", "ADBE", "CRM", "NKE", "ORCL", "ABT", "MCD", "DHR", "WFC",
+    "MDT", "BMY", "TXN", "NEE", "PM", "LIN", "HON", "QCOM", "COST", "AMGN"];
+
+    Ensure that the symbol you set is one of the ones that have been provided in the list above.
+    
     Example Input:
     Hi! What's up!
     Example Output:
@@ -603,7 +610,7 @@ def chat():
       "graph": [{{"graph_type": "SymbolInfo", "symbol": "BTCUSD"}}, {{"graph_type": "AdvancedRealTimeChart", "symbol": "BTCUSD"}}]
     }}
 
-    If the user asks in general about a cryptocurrency, return SymbolInfo as the graph with that symbol.
+    If the user asks in general about a symbol, return SymbolInfo as the graph with that symbol.
 
     Here is the current live price context:
     ${price_context}
@@ -612,7 +619,7 @@ def chat():
     ${news_context}
 
     Always use the price context to answer the user's question. Try to include 200 words in your response. Include the price of the symbol in your response.
-    Also, try to cite news specific to that cryptocurrency to answer user's queries, if the user asks for it.
+    Also, try to cite news specific to that symbol to answer user's queries, if the user asks for it. Make sure the data is close to today's data {datetime.today}. Dont cite it if it's too old (more than 1 month old)
     If users ask for overview, provide a comprehensive overview citing news sources, showing important graphs and current price data that you have.
     """
 
@@ -650,8 +657,6 @@ def chat():
     except Exception as error:
         print("Error generating completion:", error)
         return jsonify({"error": "Failed to generate completion"}), 500
-
-    print("Completed")
 
 
 if __name__ == "__main__":
