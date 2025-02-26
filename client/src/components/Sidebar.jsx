@@ -8,8 +8,12 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
     const isActive = (path) => location.pathname === path;
 
     function onBtnClick(link) {
-        navigate(link)
+        navigate(link);
+        if (window.innerWidth < 768) {
+            setIsSidebarOpen(!isSidebarOpen);
+        }
     }
+    
 
     return (
         <nav
