@@ -9,17 +9,16 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
 
     function onBtnClick(link) {
         navigate(link)
-        setIsSidebarOpen(false)
     }
 
     return (
         <nav
-            className={`absolute left-0 top-0 h-full w-full md:w-[15dvw] bg-[#f9f9f9] transition-transform duration-300 overflow-hidden ${isSidebarOpen ? "transform-none" : "transform -translate-x-full"}`}
+            className={`absolute left-0 top-0 h-full w-full md:w-[15dvw] light:bg-black light:bg-[#f9f9f9] transition-transform duration-300 overflow-hidden ${isSidebarOpen ? "transform-none" : "transform -translate-x-full"}`}
         >
-            <div className="h-[50px] w-full bg-[#f9f9f9] flex flex-row items-center p-4">
+            <div className="h-[50px] w-full dark:bg-black light:bg-[#f9f9f9] flex flex-row items-center p-4">
 
-                <div onClick={() => setIsSidebarOpen(!isSidebarOpen)} className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1 px-2`}>
-                    <PanelRightOpen color="#353839" className="w-[1.5dvw] flex-shrink-0 min-w-[20px]" />
+                <div onClick={() => setIsSidebarOpen(!isSidebarOpen)} className={`cursor-pointer flex items-center rounded-lg bg-transparent dark:hover:bg-purple-500 light:hover:bg-gray-200 p-1 px-2`}>
+                    <PanelRightOpen className="w-[1.5dvw] flex-shrink-0 min-w-[20px] dark:text-white light:text-[#353839]" />
                 </div>
                 {isSidebarOpen && (
                     <div className="p-1 px-2 text-purple-500 font-bold text-xl cursor-pointer" onClick={() => { navigate("/") }}>BullRunAI</div>
@@ -30,7 +29,7 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                 <li className="space-y-2">
                 <div
                         onClick={() => {onBtnClick("/")}}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors dark:text-white light:text-black light:hover:text-black dark:hover:text-black ${isActive("/") ? "bg-[#eceef2] hover:bg-gray-200 dark:text-black" : "bg-transparent hover:bg-gray-200"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
                         <Home color="gray" className="w-5 h-5 flex-shrink-0" />
@@ -38,7 +37,7 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                     </div>
                     <div
                         onClick={() => {onBtnClick("/stock")}}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/stock") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors dark:text-white light:text-black light:hover:text-black dark:hover:text-black ${isActive("/stock") ? "bg-[#eceef2] hover:bg-gray-200 dark:text-black" : "bg-transparent hover:bg-gray-200"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
                         <ChartNoAxesCombined color="gray" className="w-5 h-5 flex-shrink-0" />
@@ -46,7 +45,7 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                     </div>
                     <div
                         onClick={() => { onBtnClick("/crypto") }}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/crypto") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors dark:text-white light:text-black light:hover:text-black dark:hover:text-black ${isActive("/crypto") ? "bg-[#eceef2] hover:bg-gray-200 dark:text-black" : "bg-transparent hover:bg-gray-200"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
                         <Bitcoin color="gray" className="w-5 h-5 flex-shrink-0" />

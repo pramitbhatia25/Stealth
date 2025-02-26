@@ -8,16 +8,15 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="h-[50px] w-full bg-white flex flex-row justify-between items-center px-4 border-b border-gray-200">
+    <div className="h-[50px] w-full dark:bg-black light:bg-white flex flex-row justify-between items-center px-4 border-b border-gray-200">
       <div className="flex flex-row">
         {!isSidebarOpen && (
           <div
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-gray-200 p-1 px-2`}
+            className={`cursor-pointer flex items-center rounded-lg bg-transparent dark:hover:bg-purple-500 light:hover:bg-gray-200 p-1 px-2`}
           >
             <PanelRightClose
-              color="#353839"
-              className="w-[1.5dvw] flex-shrink-0 min-w-[20px]"
+              className="w-[1.5dvw] flex-shrink-0 min-w-[20px] dark:text-white light:text-[#353839]"
             />
           </div>
         )}
@@ -46,23 +45,8 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
       </div>
 
       <div className="flex gap-5 flex items-center justify-center">
-        <div className="text-black hidden md:flex hover:text-purple-500 hover:cursor-pointer">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"></path>
-          </svg>
-        </div>
         <div className="flex flex-row w-fit flex-shrink-0 flex items-center justify-center">
-          <DynamicWidget variant='modal' />
+          <DynamicWidget variant='modal' innerButtonComponent={"Get Premium For Free 🔥"}/>
         </div>
       </div>
     </div>
