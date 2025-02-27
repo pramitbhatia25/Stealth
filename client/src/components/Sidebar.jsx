@@ -40,8 +40,8 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                         <span className="text-sm">Overview</span>
                     </div>
                     <div
-                        onClick={() => {onBtnClick("/stock")}}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors dark:text-white light:text-black light:hover:text-black dark:hover:text-black ${isActive("/stock") ? "bg-[#eceef2] hover:bg-gray-200 dark:text-black" : "bg-transparent hover:bg-gray-200"}
+                        onClick={() => {onBtnClick("/stocks")}}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors dark:text-white light:text-black light:hover:text-black dark:hover:text-black ${isActive("/stocks") ? "bg-[#eceef2] hover:bg-gray-200 dark:text-black" : "bg-transparent hover:bg-gray-200"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
                         <ChartNoAxesCombined color="gray" className="w-5 h-5 flex-shrink-0" />

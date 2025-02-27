@@ -12,6 +12,7 @@ import {
 } from "react-ts-tradingview-widgets";
 import { useLayoutEffect, useRef, useState } from "react";
 import Chatbot from "../components/Chatbot";
+import CustomTickerTape from "../components/CustomTickerTape";
 
 function Chat({ isSidebarOpen, setIsSidebarOpen }) {
   const [extraWidgets, setExtraWidgets] = useState([]);
@@ -43,8 +44,7 @@ function Chat({ isSidebarOpen, setIsSidebarOpen }) {
       defaultProps: { colorTheme: "light", height: 250, width: "100%" },
     },
     TickerTape: {
-      component: TickerTape,
-      defaultProps: { colorTheme: "light", autosize: true },
+      component: CustomTickerTape,
     },
     Timeline: {
       component: Timeline,
@@ -79,10 +79,10 @@ function Chat({ isSidebarOpen, setIsSidebarOpen }) {
               
                   const { component: WidgetComponent, defaultProps } = widgetData;
                   return (
-                    <div key={index} className="relative overflow-auto h-fit max-h-[280px] border rounded-xl my-2 scrollbar-hide">
+                    <div key={index} className="relative overflow-auto h-fit justify-center max-h-[280px] border rounded-xl my-2 scrollbar-hide">
                       <button 
                         onClick={() => setSelectedWidget({ type: graph_type, symbol })}
-                        className="absolute top-2 right-10 bg-white/80 hover:bg-white p-1.5 rounded-lg shadow-md z-10"
+                        className="absolute top-2 right-2 bg-white/80 hover:bg-white p-1 rounded-lg shadow-md z-10"
                         title="Fullscreen"
                       >
                         <Maximize className="h-6 w-6" />

@@ -3,6 +3,7 @@ import { AdvancedRealTimeChart, CompanyProfile, FundamentalData, SymbolInfo, Sym
 import { useState, useEffect } from 'react';
 import HistoricalChart from './Test2';
 import { Sparkles } from 'lucide-react';
+import CustomTickerTape from '../components/CustomTickerTape';
 
 function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
     const { symbol } = useParams();
@@ -53,10 +54,10 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
     return (
         <div className="h-full w-full">
             <div className="h-[calc(100dvh-50px)] w-full flex flex-col overflow-y-auto">
-                <div className="h-[80px] md:h-[45px] w-full overflow-hidden border-b-2 border-gray-200">
-                    <TickerTape />
+            <div className="h-[45px] w-full overflow-hidden border-b-1 border-gray-200">
+                    <CustomTickerTape />
                 </div>
-                <div className="w-full h-[calc(100dvh-140px)] md:h-[calc(100dvh-95px)] p-3 flex md:flex-row flex-col md:space-y-0 space-y-2 overflow-auto">
+                <div className="w-full h-[calc(100dvh-95px)] p-3 space-y-2">
                     <div className="w-full md:h-full md:overflow-auto md:scrollbar-auto md:scrollbar-hide md:w-[50%] h-fit">
                         <div className='h-[250px] md:h-[220px] border-b-2 md:border-r-2 border-gray-200 overflow-hidden flex justify-between'>
                             <div className='w-[100%]'>

@@ -13,7 +13,7 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
         {!isSidebarOpen && (
           <div
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`cursor-pointer flex items-center rounded-lg bg-transparent dark:hover:bg-purple-500 light:hover:bg-gray-200 p-1 px-2`}
+            className={`flex md:hidden cursor-pointer flex items-center rounded-lg bg-transparent dark:hover:bg-purple-500 light:hover:bg-gray-200 p-1 px-2`}
           >
             <PanelRightClose
               className="w-[1.5dvw] flex-shrink-0 min-w-[20px] dark:text-white light:text-[#353839]"
@@ -25,8 +25,8 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
         )}
       </div>
 
-      <div className="md:flex hidden mx-auto w-fit flex-shrink-0">
-        <form className="relative w-fit flex-shrink-0 min-w-[500px]">
+      <div className="md:flex hidden mx-auto w-fit flex-shrink-0 gap-5">
+        <form className="relative w-fit flex-shrink-0 min-w-[300px]">
           <button
             type="submit"
             className="absolute left-2 top-1 text-purple-500 p-1 rounded-full transition-colors"
@@ -42,6 +42,23 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
             className="w-full bg-white text-black rounded-full py-2 pl-10 pr-4 text-xs border border-gray-200 focus:outline-none focus:ring-0 shadow-md rounded-bottom-shadow"
           />
         </form>
+
+        <div className="hidden md:flex relative w-full flex flex-row gap-5">
+          <div onClick={() => { navigate("/") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
+            Overview
+          </div>
+          <div onClick={() => { navigate("/stocks") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/stocks") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
+            Stocks
+          </div>
+          <div onClick={() => { navigate("/crypto") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/crypto") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
+            Crypto
+          </div>
+          <div onClick={() => { navigate("/chat") }} className={`cursor-pointer flex items-center justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 ${isActive("/chat") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-[#eceef2]"}`}>
+            <Sparkles className="w-4 h-4 flex-shrink-0 mr-2 text-purple-500" />
+            Ask AI
+          </div>
+        </div>
+
       </div>
 
       <div className="flex gap-5 flex items-center justify-center">
