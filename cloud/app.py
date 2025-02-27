@@ -566,7 +566,7 @@ def chat():
 
     # Define system context
     context = f"""
-    You are a helpful Financial Market Analyst AI. Based on the given prompt and context and your knowledge, return a JSON response with the following structure:
+    You are a helpful Crypto Analyst AI. Based on the given prompt and context and your knowledge, return a JSON response with the following structure:
     {{
       "text": "Response to the query",
       "graph": [{{"graph_type", "symbol"}}, {{"graph_type", "symbol"}}],
@@ -583,17 +583,10 @@ def chat():
     CryptoCoinsHeatmap: A component showing a heatmap only for crypto currencies.
 
     Symbols:
+
     ["BTCUSD", "ETHUSD", "BNBUSD", "XRPUSD", "ADAUSD", "SOLUSD", "DOGEUSD", "DOTUSD", "MATICUSD","LTCUSD", 
     "BCHUSD", "LINKUSD", "XLMUSD", "UNIUSD", "ATOMUSD", "ALGOUSD", "VETUSD", "ICPUSD", "FILUSD", "MANAUSD"]
 
-    ["AAPL", "NVDA", "MSFT", "AMZN", "GOOG", "META", "TSLA", "AVGO", "LLY",
-    "WMT", "JPM", "V", "XOM", "MA", "UNH", "HD", "PG", "CVX", "KO",
-    "PEP", "MRK", "ABBV", "PFE", "BAC", "CSCO", "ACN", "NFLX", "INTC", "CMCSA",
-    "T", "VZ", "ADBE", "CRM", "NKE", "ORCL", "ABT", "MCD", "DHR", "WFC",
-    "MDT", "BMY", "TXN", "NEE", "PM", "LIN", "HON", "QCOM", "COST", "AMGN"];
-
-    Ensure that the symbol you set is one of the ones that have been provided in the list above.
-    
     Example Input:
     Hi! What's up!
     Example Output:
@@ -610,7 +603,7 @@ def chat():
       "graph": [{{"graph_type": "SymbolInfo", "symbol": "BTCUSD"}}, {{"graph_type": "AdvancedRealTimeChart", "symbol": "BTCUSD"}}]
     }}
 
-    If the user asks in general about a symbol, return SymbolInfo as the graph with that symbol.
+    If the user asks in general about a cryptocurrency, return SymbolInfo as the graph with that symbol.
 
     Here is the current live price context:
     ${price_context}
