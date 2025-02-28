@@ -2,6 +2,7 @@ import "./index.css";
 import { PanelRightClose, Sparkles } from "lucide-react";
 import { DynamicWidget, useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { useNavigate } from "react-router-dom";
+import Logo from "../assets/brlogo.png"; 
 
 export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
   const navigate = useNavigate()
@@ -21,7 +22,9 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
           </div>
         )}
         {!isSidebarOpen && (
-          <div className="p-1 px-2 text-purple-500 font-bold text-xl cursor-pointer" onClick={() => { navigate("/") }}>BullRunAI</div>
+          <div className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] md:w-auto w-[150px]" onClick={() => { navigate("/") }}>
+          <img src={Logo} alt="Brand Logo" className="h-full w-full" />
+          </div>
         )}
       </div>
 
@@ -63,7 +66,7 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
 
       <div className="flex gap-5 flex items-center justify-center">
         <div className="flex flex-row w-fit flex-shrink-0 flex items-center justify-center">
-          <DynamicWidget variant='modal' innerButtonComponent={"Get Premium For Free 🔥"}/>
+          <DynamicWidget variant='modal' innerButtonComponent={"Get Started"}/>
         </div>
       </div>
     </div>
