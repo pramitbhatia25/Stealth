@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Sparkles } from "lucide-react";
 import cryptoMetadata from "../data/cryptoMetadata.jsx"
 import CustomTickerTape from "../components/CustomTickerTape.jsx";
+import CustomNavbar from "../components/Navbar.jsx";
 
 function Crypto({ isSidebarOpen, setIsSidebarOpen }) {
     const [cryptoPrices, setCryptoPrices] = useState([]);
@@ -28,9 +29,12 @@ function Crypto({ isSidebarOpen, setIsSidebarOpen }) {
 
     return (
         <div className="h-full w-full">
-            <div className="h-[calc(100dvh-50px)] w-full flex flex-col overflow-y-auto">
-            <div className="h-[45px] w-full overflow-hidden border-b-1 dark:border-white light:border-gray-200 flex items-center">
-                    <CustomTickerTape />
+            <div className="">
+                <CustomTickerTape />
+            </div>
+            <div className="h-[calc(100dvh-40px)] w-full flex flex-col overflow-y-auto">
+                <div className="h-[55px] w-full overflow-hidden border-b-1 dark:border-white light:border-gray-200 flex items-center">
+                    <CustomNavbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
                 </div>
                 <div className="w-full h-[calc(100dvh-95px)] p-3 space-y-2 overflow-auto">
                     <div className="h-fit p-3 space-y-2">

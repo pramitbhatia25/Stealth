@@ -1,7 +1,6 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
-import { useEffect, useState } from "react";
-import CustomNavbar from "./components/Navbar";
+import { useState } from "react";
 import Chat from "./pages/Chat";
 import Crypto from "./pages/Crypto";
 import { DynamicContextProvider } from "@dynamic-labs/sdk-react-core";
@@ -14,10 +13,9 @@ import { CosmosWalletConnectors } from "@dynamic-labs/cosmos";
 import { BitcoinWalletConnectors } from "@dynamic-labs/bitcoin";
 import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
 import SpecificCrypto from "./pages/SpecificCrypto";
-import NewSpecificCrypto from "./pages/NewSpecificCrypto";
-import Stocks from "./pages/Stocks";
-import Overview from "./pages/Overview";
+import LandingPage from "./pages/LandingPage";
 import { CryptoDataProvider } from "./data/cryptoDataProvider";
+import CustomTickerTape from "./components/CustomTickerTape";
 
 
 function App() {
@@ -28,6 +26,7 @@ function App() {
       <DynamicContextProvider
         settings={{
           environmentId: "b729ee28-b174-4641-8419-f946ccc04243",
+          redirectUrl:"https://bullrunai.vercel.app/dashboard",
           walletConnectors: [
             AlgorandWalletConnectors,
             BitcoinWalletConnectors,
@@ -49,18 +48,11 @@ function App() {
             <div className={`transition-all duration-300 ${isSidebarOpen ? "w-full md:w-[85dvw]" : "w-full"}`}>
               <div className={`transition-all duration-300 h-full ${isSidebarOpen ? "w-full md:w-[85dvw]" : "w-full"}`}>
                 <div className="">
-                  <CustomNavbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
-                </div>
-                <div className="">
                   <Routes>
-                    <Route path="/" element={<Overview isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                    <Route path="/stocks" element={<Stocks isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                    <Route path="/crypto" element={<Crypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                    <Route path="/news" element={<Crypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                    <Route path="/" element={<LandingPage isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                    <Route path="/dashboard" element={<Crypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                     <Route path="/chat" element={<Chat isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                     <Route path="/crypto/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                    <Route path="/newcrypto/:symbol" element={<NewSpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                    <Route path="/stocks/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                   </Routes>
                 </div>
               </div>
