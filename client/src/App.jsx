@@ -14,6 +14,7 @@ import { CosmosWalletConnectors } from "@dynamic-labs/cosmos";
 import { BitcoinWalletConnectors } from "@dynamic-labs/bitcoin";
 import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
 import SpecificCrypto from "./pages/SpecificCrypto";
+import NewSpecificCrypto from "./pages/NewSpecificCrypto";
 import Stocks from "./pages/Stocks";
 import Overview from "./pages/Overview";
 import { CryptoDataProvider } from "./data/cryptoDataProvider";
@@ -58,6 +59,7 @@ function App() {
                     <Route path="/news" element={<Crypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                     <Route path="/chat" element={<Chat isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                     <Route path="/crypto/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                    <Route path="/newcrypto/:symbol" element={<NewSpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                     <Route path="/stocks/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                   </Routes>
                 </div>

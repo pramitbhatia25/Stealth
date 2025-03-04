@@ -18,7 +18,6 @@ function CustomTickerTape() {
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
         >
-          {/* Double the content for seamless looping */}
           {[...cryptoPrices, ...cryptoPrices].map((crypto, index) => {
             const difference = crypto.CurrentPrice - crypto.Open;
             const percentage = (difference / crypto.Open) * 100;
