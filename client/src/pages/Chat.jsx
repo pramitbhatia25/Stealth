@@ -15,7 +15,7 @@ import Chatbot from "../components/Chatbot";
 import CustomTickerTape from "../components/CustomTickerTape";
 import CustomNavbar from "../components/Navbar";
 
-function Chat({ isSidebarOpen, setIsSidebarOpen }) {
+function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
   const [extraWidgets, setExtraWidgets] = useState([]);
   const widgetsEndRef = useRef(null);
   const [selectedWidget, setSelectedWidget] = useState(null);
@@ -72,7 +72,7 @@ function Chat({ isSidebarOpen, setIsSidebarOpen }) {
       </div>
       <div className="h-[calc(100dvh-40px)] w-full flex flex-col overflow-y-auto">
         <div className="h-[55px] w-full overflow-hidden border-b-1 dark:border-white light:border-gray-200 flex items-center">
-          <CustomNavbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+          <CustomNavbar isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         </div>
         <div className="w-full h-[calc(100dvh-95px)] overflow-auto flex">
           <div className="flex flex-col w-[50%] h-[calc(100dvh-95px)]">

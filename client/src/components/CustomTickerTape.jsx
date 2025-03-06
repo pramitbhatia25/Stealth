@@ -9,7 +9,7 @@ function CustomTickerTape() {
   const navigate = useNavigate();
 
   return (
-    <div className="h-[40px] w-full bg-black text-white transition-colors duration-200 flex items-center overflow-hidden relative group">
+    <div className="h-[40px] w-full dark:bg-black light:bg-white light:text-black dark:text-white transition-colors duration-200 flex items-center overflow-hidden relative group">
       {loading ? (
         <div className="w-full h-[40px] flex items-center justify-center">Loading...</div>
       ) : (

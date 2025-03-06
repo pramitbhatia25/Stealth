@@ -6,7 +6,7 @@ import cryptoMetadata from "../data/cryptoMetadata.jsx"
 import CustomTickerTape from "../components/CustomTickerTape.jsx";
 import CustomNavbar from "../components/Navbar.jsx";
 
-function Crypto({ isSidebarOpen, setIsSidebarOpen }) {
+function Crypto({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
     const [cryptoPrices, setCryptoPrices] = useState([]);
     const allCrypto = ['LTC-USD', 'ETH-USD', 'DOGE-USD', 'BTC-USD', 'BNB-USD', 'XRP-USD', 'ADA-USD', 'SOL-USD', 'DOT-USD', 'MATIC-USD', 'LTC-USD', 'BCH-USD', 'LINK-USD', 'XLM-USD', 'UNI1-USD', 'ATOM-USD', 'ALGO-USD', 'VET-USD', 'ICP-USD', 'FIL-USD', 'MANA-USD'];
 
@@ -34,7 +34,7 @@ function Crypto({ isSidebarOpen, setIsSidebarOpen }) {
             </div>
             <div className="h-[calc(100dvh-40px)] w-full flex flex-col overflow-y-auto">
                 <div className="h-[55px] w-full overflow-hidden border-b-1 dark:border-white light:border-gray-200 flex items-center">
-                    <CustomNavbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+                    <CustomNavbar isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
                 </div>
                 <div className="w-full h-[calc(100dvh-95px)] p-3 space-y-2 overflow-auto">
                     <div className="h-fit p-3 space-y-2">

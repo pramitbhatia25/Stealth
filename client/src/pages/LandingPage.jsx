@@ -5,14 +5,9 @@ import { DynamicConnectButton } from "@dynamic-labs/sdk-react-core";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
 import { useState } from "react";
 
-function LandingPage({ isSidebarOpen, setIsSidebarOpen }) {
-    const navigate = useNavigate();
+function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleOpenModal = () => {
-        setIsModalOpen(true);
-    };
 
     const handleCloseModal = () => {
         setIsModalOpen(false);
@@ -27,7 +22,7 @@ function LandingPage({ isSidebarOpen, setIsSidebarOpen }) {
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-96 blur-[100px] rounded-full 
                               bg-green-200/30 opacity-50 dark:bg-green-500/20 dark:opacity-30" />
 
-                <CustomNavbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen}/>
+                <CustomNavbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} isDark={isDark} setIsDark={setIsDark}/>
 
                 <div className="px-6 py-20 max-w-7xl mx-auto text-center flex flex-col items-center justify-center relative z-10">
                     <h1 className="text-2xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-gray-100 transition-colors duration-300">

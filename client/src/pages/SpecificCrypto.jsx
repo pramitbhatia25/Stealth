@@ -9,7 +9,7 @@ import { CheckCircle, AlertTriangle } from "lucide-react";
 import CustomNavbar from '../components/Navbar.jsx';
 import CustomTickerTape from '../components/CustomTickerTape.jsx';
 
-function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
+function SpecificCrypto({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
     const { symbol } = useParams();
     const cleanSymbol = symbol.replace(/-/g, '');
 
@@ -65,7 +65,7 @@ function SpecificCrypto({ isSidebarOpen, setIsSidebarOpen }) {
             </div>
             <div className="h-[calc(100dvh-40px)] w-full flex flex-col overflow-y-auto">
                 <div className="h-[55px] w-full overflow-hidden border-b-1 dark:border-white light:border-gray-200 flex items-center">
-                    <CustomNavbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
+                    <CustomNavbar isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
                 </div>
                 <div className="w-full h-[calc(100dvh-95px)] p-3 space-y-2 overflow-auto">
                     {loading ? (

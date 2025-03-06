@@ -1,11 +1,11 @@
 import "./index.css";
-import { PanelRightClose, Sparkles } from "lucide-react";
+import { Moon, PanelRightClose, Sparkles } from "lucide-react";
 import { DynamicWidget, useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/bullrun-light.jpeg";
 import LogoDark from "../assets/bullrun-dark.jpeg";
 
-export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
+export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen, isDark, setIsDark }) {
   const navigate = useNavigate()
   const isActive = (path) => location.pathname === path;
 
@@ -23,7 +23,7 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
           </div>
         )}
         {!isSidebarOpen && (
-          <div className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] w-auto">
+          <div className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] w-auto max-w-[180px]">
             <img src={Logo} alt="Brand Logo" className="h-full w-full block dark:hidden" />
             <img src={LogoDark} alt="Brand Logo" className="h-full w-full hidden dark:block" />
           </div>
@@ -65,8 +65,11 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
             <DynamicWidget variant='modal' innerButtonComponent={"Get Started"} />
           </div>
         </div>
-
       </>}
+
+        <div onClick={() => setIsDark(!isDark)} className="cursor-pointer my-auto p-2 mx-2 rounded-full hover:bg-gray-200 dark:hover:bg-green-500">
+            <Moon className="w-5 h-5 dark:text-white light:text-[#353839]" />
+        </div>
     </div>
   );
 }

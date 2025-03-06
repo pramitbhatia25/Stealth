@@ -15,11 +15,11 @@ import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
 import SpecificCrypto from "./pages/SpecificCrypto";
 import LandingPage from "./pages/LandingPage";
 import { CryptoDataProvider } from "./data/cryptoDataProvider";
-import CustomTickerTape from "./components/CustomTickerTape";
 
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isDark, setIsDark] = useState(false);
 
   return (
     <CryptoDataProvider>
@@ -40,7 +40,7 @@ function App() {
         }}
       >
         <Router>
-          <div className="flex w-full h-screen">
+          <div className={`${isDark && "dark"} flex w-full h-screen`}>
             <div className={`z-50 transition-all duration-300 ${isSidebarOpen ? "w-full md:w-[15dvw]" : "w-0"}`}>
               <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             </div>
@@ -49,10 +49,10 @@ function App() {
               <div className={`transition-all duration-300 h-full ${isSidebarOpen ? "w-full md:w-[85dvw]" : "w-full"}`}>
                 <div className="">
                   <Routes>
-                    <Route path="/" element={<LandingPage isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                    <Route path="/dashboard" element={<Crypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                    <Route path="/chat" element={<Chat isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
-                    <Route path="/crypto/:symbol" element={<SpecificCrypto isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                    <Route path="/" element={<LandingPage isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                    <Route path="/dashboard" element={<Crypto isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                    <Route path="/chat" element={<Chat isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
+                    <Route path="/crypto/:symbol" element={<SpecificCrypto isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />} />
                   </Routes>
                 </div>
               </div>
