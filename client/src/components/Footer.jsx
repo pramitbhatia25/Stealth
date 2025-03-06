@@ -1,24 +1,26 @@
+import LogoDark from "../assets/bullrun-dark.jpeg";
+
 function Footer() {
     return <>
-        <footer className="bg-[#0f0f0f] w-full ">
+        <footer className="text-gray-400 w-full ">
             <div className=" mx-auto px-4 py-10 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    {/* About Section */}
-                    <div>
-                        <h2 className="text-lg font-semibold text-white">About Us</h2>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                    <div className="col-span-2">
+                        <div className="py-[2px] text-purple-500 font-bold text-xl cursor-pointer h-[50px] w-[170px]">
+                            <img src={LogoDark} alt="Brand Logo" className="h-full w-full" />
+                        </div>
                         <p className="mt-2 text-sm">
                             Our mission is to empower students around the world to learn and grow through project-based programming, making hands-on learning accessible to everyone
                         </p>
                     </div>
 
-                    {/* Links Section */}
-                    <div>
-                        <h2 className="text-lg font-semibold text-white">Quick Links</h2>
+                    <div className="col-span-1">
+                        <h2 className="text-lg font-semibold">Quick Links</h2>
                         <ul className="mt-2 space-y-2">
                             <li>
                                 <a
                                     href="#"
-                                    className="hover:underline hover:text-white transition"
+                                    className="hover:underline transition"
                                 >
                                     Home
                                 </a>
@@ -26,7 +28,7 @@ function Footer() {
                             <li>
                                 <a
                                     href="#"
-                                    className="hover:underline hover:text-white transition"
+                                    className="hover:underline transition"
                                 >
                                     LinkedIn
                                 </a>
@@ -34,33 +36,24 @@ function Footer() {
                             <li>
                                 <a
                                     href="#"
-                                    className="hover:underline hover:text-white transition"
+                                    className="hover:underline transition"
                                 >
                                     Support Us
-                                </a>
-                            </li>
-                            <li>
-                                <a
-                                    href="#"
-                                    className="hover:underline hover:text-white transition"
-                                >
-                                    Careers
                                 </a>
                             </li>
                         </ul>
                     </div>
 
-                    {/* Contact Section */}
-                    <div>
-                        <h2 className="text-lg font-semibold text-white">Contact Us</h2>
+                    <div className="col-span-1">
+                        <h2 className="text-lg font-semibold">Contact Us</h2>
                         <p className="mt-2 text-sm">Email: pramitbhatia25@gmail.com</p>
                         <p className="text-sm">Phone: +1 470 430 3868</p>
                     </div>
                 </div>
 
-                <div className="border-t border-gray-700 mt-8 pt-4 text-center">
+                <div className="border-t border-gray-700 mt-8 pt-4 text-left">
                     <p className="text-sm">
-                        &copy; {new Date().getFullYear()} Kapstone. All rights reserved.
+                        &copy; {new Date().getFullYear()} BullRun. All rights reserved.
                     </p>
                 </div>
             </div>

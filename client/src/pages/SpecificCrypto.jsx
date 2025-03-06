@@ -138,7 +138,7 @@ function SpecificCrypto({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) 
                                         <Lightbulb color={"green"} width={20} height={20} />
                                     </div>
                                     <div className="text-sm font-semibold">
-                                        Turned 1 L to 5 L in the last 3 years
+                                        Turned $100 to $1,130 in the last 5 years
                                     </div>
                                 </div>
                             </div>

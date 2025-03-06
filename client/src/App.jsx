@@ -15,7 +15,7 @@ import { AlgorandWalletConnectors } from "@dynamic-labs/algorand";
 import SpecificCrypto from "./pages/SpecificCrypto";
 import LandingPage from "./pages/LandingPage";
 import { CryptoDataProvider } from "./data/cryptoDataProvider";
-
+import Footer from "./components/Footer"
 
 function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -56,7 +56,7 @@ function App() {
                   </Routes>
                 </div>
               </div>
-            </div>
+              </div>
           </div>
         </Router>
       </DynamicContextProvider>

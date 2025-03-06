@@ -5,12 +5,12 @@ import { useNavigate } from "react-router-dom";
 import Logo from "../assets/bullrun-light.jpeg";
 import LogoDark from "../assets/bullrun-dark.jpeg";
 
-export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen, isDark, setIsDark }) {
+export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
   const navigate = useNavigate()
   const isActive = (path) => location.pathname === path;
 
   return (
-    <div className="h-[55px] w-full dark:bg-black light:bg-white flex flex-row justify-between items-center px-4 border-b dark:border-[green] light:border-gray-200">
+    <div className="h-[55px] w-full bg-transparent flex flex-row justify-between items-center px-4">
       <div className="flex flex-row">
         {!isSidebarOpen && (
           <div
@@ -23,7 +23,7 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen, isDark, 
           </div>
         )}
         {!isSidebarOpen && (
-          <div className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] w-auto max-w-[180px]">
+          <div className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] w-[170px]">
             <img src={Logo} alt="Brand Logo" className="h-full w-full block dark:hidden" />
             <img src={LogoDark} alt="Brand Logo" className="h-full w-full hidden dark:block" />
           </div>
@@ -66,10 +66,6 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen, isDark, 
           </div>
         </div>
       </>}
-
-        <div onClick={() => setIsDark(!isDark)} className="cursor-pointer my-auto p-2 mx-2 rounded-full hover:bg-gray-200 dark:hover:bg-green-500">
-            <Moon className="w-5 h-5 dark:text-white light:text-[#353839]" />
-        </div>
     </div>
   );
 }
