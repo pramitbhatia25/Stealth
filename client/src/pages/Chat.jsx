@@ -77,7 +77,7 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
               <div className="h-full w-full">
 
                 {extraWidgets.length !== 0 &&
-                  <div className="">
+                  <div className="border p-5">
                     {extraWidgets.map(({ graph_type, symbol }, index) => {
                       const widgetData = componentsMap[graph_type]; // Get widget based on graph_type
                       if (!widgetData) return null;

@@ -24,14 +24,13 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
           </div>
         )}
         {!isSidebarOpen && (
-          <div className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] w-[170px]">
-            <img src={Logo} alt="Brand Logo" className="h-full w-full block dark:hidden" />
+          <div onClick={() => { navigate("/") }} className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] w-[170px]">
             <img src={LogoDark} alt="Brand Logo" className="h-full w-full hidden dark:block" />
           </div>
         )}
       </div>
 
-      {!isActive("/") || !isActive("/chat") && <>
+      {!isActive("/") && !isActive("/chat") && <>
         <div className="md:flex hidden mx-auto w-fit flex-shrink-0 gap-5">
           <form className="relative w-fit flex-shrink-0 min-w-[300px]">
             <button
@@ -67,6 +66,10 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
           </div>
         </div>
       </>}
+      <div onClick={() => { navigate("/chat") }} className={`cursor-pointer flex items-center border border-white text-white justify-center p-2 rounded-full text-xs w-fit min-w-[70px] flex-shrink-0 bg-transparent hover:scale-105 duration-300`}>
+        <Sparkles className="w-4 h-4 flex-shrink-0 mr-2 text-white" />
+        Try It Out
+      </div>
     </div>
   );
 }

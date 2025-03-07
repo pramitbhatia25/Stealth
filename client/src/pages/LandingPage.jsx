@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { MailIcon, Play, Rocket, Sparkles } from "lucide-react";
+import { ArrowRight, MailIcon, Play, Rocket, Sparkles } from "lucide-react";
 import CustomNavbar from "../components/Navbar.jsx";
 import { DynamicConnectButton } from "@dynamic-labs/sdk-react-core";
 import { Button, Chip, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
@@ -75,20 +75,10 @@ function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
                                     <TypeAnimation
                                         sequence={[
                                             'Crypto Intelligence', 1000,
-                                            'Decentralized Finance (DeFi)', 1000,
-                                            'On-Chain Analytics', 1000,
-                                            'Bitcoin Halving Cycles', 1000,
-                                            'Layer 2 Scaling Solutions', 1000,
-                                            'Regulatory Trends in Crypto', 1000,
-                                            'Smart Contract Security', 1000,
-                                            'NFTs & Digital Ownership', 1000,
-                                            'Crypto Market Sentiment', 1000,
-                                            'Blockchain Gaming & Metaverse', 1000,
-                                            'Institutional Adoption of Crypto', 1000,
-                                            'Staking & Yield Farming', 1000,
-                                            'Privacy Coins & Anonymity', 1000,
-                                            'Central Bank Digital Currencies (CBDCs)', 1000,
-                                            'AI & Blockchain Synergy', 1000
+                                            'Decentralized Finance', 1000,
+                                            'Crypto Markets', 1000,
+                                            'Sentiment Analysis', 1000,
+                                            'Predictive Trading Models', 1000
                                         ]}
                                         wrapper="span"
                                         speed={50}
@@ -103,7 +93,7 @@ function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
                             </p>
 
 
-                            <div className="flex flex-col items-center md:items-start w-full">
+                            <div className="flex flex-col items-center md:items-start w-full gap-4">
                                 <div className="flex flex-col md:flex-row gap-4 w-full items-center md:items-start text-white">
                                     <Input
                                         type="email"
