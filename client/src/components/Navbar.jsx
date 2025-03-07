@@ -31,7 +31,7 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
         )}
       </div>
 
-      {!isActive("/") && <>
+      {!isActive("/") || !isActive("/chat") && <>
         <div className="md:flex hidden mx-auto w-fit flex-shrink-0 gap-5">
           <form className="relative w-fit flex-shrink-0 min-w-[300px]">
             <button

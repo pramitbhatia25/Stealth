@@ -66,16 +66,13 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
   };
 
   return (
-    <div className="h-full w-full">
-      <div className="">
-          <CustomTickerTape />
-      </div>
-      <div className="h-[calc(100dvh-40px)] w-full flex flex-col overflow-y-auto">
-        <div className="h-[55px] w-full overflow-hidden border-b-1 dark:border-white light:border-gray-200 flex items-center">
+    <div className="dark h-[100dvh] w-full bgcustom">
+      <div className="h-full w-full flex flex-col overflow-y-auto">
+        <div className="h-[55px] w-full overflow-hidden flex items-center">
           <CustomNavbar isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         </div>
-        <div className="w-full h-[calc(100dvh-95px)] overflow-auto flex">
-          <div className="flex flex-col w-[50%] h-[calc(100dvh-95px)]">
+        <div className="w-full h-[calc(100dvh-55px)] overflow-auto flex flex-col md:flex-row">
+          <div className="flex flex-col w-full md:w-[70%] h-[calc((100dvh-55px)/2)] md:h-[calc(100dvh-55px)]">
             <div className="h-full flex flex-col overflow-y-auto p-5">
               <div className="h-full w-full">
 
@@ -106,7 +103,7 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
                 }
 
                 {extraWidgets.length == 0 && (
-                  <div className="text-black border flex items-center justify-center h-full text-gray-500">
+                  <div className="border flex items-center justify-center h-full text-gray-500">
                     Begin Chat To View Analysis
                   </div>
                 )}
@@ -114,7 +111,7 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
             </div>
           </div>
 
-          <div className="h-[calc(100dvh-95px)] flex flex-col w-[50%] ">
+          <div className="h-[calc((100dvh-55px)/2)] md:h-[calc(100dvh-55px)] flex flex-col w-full md:w-[30%] ">
             <Chatbot extraWidgets={extraWidgets} setExtraWidgets={setExtraWidgets} />
           </div>
           

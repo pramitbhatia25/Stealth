@@ -121,7 +121,7 @@ const Chatbot = ({ extraWidgets, setExtraWidgets }) => {
                     {messages.map((message) => (
                         <div key={message.id} className={`flex ${message.isUser ? 'justify-end' : 'justify-start'}`}>
                             <div className={`w-fit ${message.isUser ? '' : 'pr-12'}`}>
-                                <div className={`rounded-xl p-2 ${message.isUser ? 'bg-[#f2f2f2] text-black' : 'text-black'}`}>
+                                <div className={`rounded-xl p-2 ${message.isUser ? 'bg-[#f2f2f2] text-black' : 'text-white'}`}>
                                     <p className="text-sm"><Markdown>{message.text}</Markdown></p>
                                 </div>
                                 {!message.isUser && <MessageActions text={message.text} />}
