@@ -3,7 +3,7 @@ import { Moon, PanelRightClose, Sparkles } from "lucide-react";
 import { DynamicWidget, useDynamicContext } from "@dynamic-labs/sdk-react-core";
 import { useNavigate } from "react-router-dom";
 import Logo from "../assets/bullrun-light.jpeg";
-import LogoDark from "../assets/bullrun-dark.jpeg";
+import LogoDark from "../assets/bullrun-dark.png";
 
 export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
   const navigate = useNavigate()
@@ -15,9 +15,10 @@ export default function CustomNavbar({ isSidebarOpen, setIsSidebarOpen }) {
         {!isSidebarOpen && (
           <div
             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-            className={`hidden cursor-pointer flex items-center rounded-lg bg-transparent dark:hover:bg-purple-500 light:hover:bg-gray-200 p-1 px-2`}
+            className={`hidden w-fit h-fit my-auto md:hidden flex cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-green-900 ml-2`}
           >
             <PanelRightClose
+              size={20}
               className="w-[1.5dvw] flex-shrink-0 min-w-[20px] dark:text-white light:text-[#353839]"
             />
           </div>

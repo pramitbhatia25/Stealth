@@ -1,4 +1,4 @@
-import LogoDark from "../assets/bullrun-dark.jpeg";
+import LogoDark from "../assets/bullrun-dark.png";
 
 function Footer() {
     return <>
@@ -6,11 +6,11 @@ function Footer() {
             <div className=" mx-auto px-4 py-10 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div className="col-span-2">
-                        <div className="py-[2px] text-purple-500 font-bold text-xl cursor-pointer h-[50px] w-[170px]">
+                        <div className="py-[2px] text-purple-500 font-bold text-xl h-[50px] w-[170px]">
                             <img src={LogoDark} alt="Brand Logo" className="h-full w-full" />
                         </div>
                         <p className="mt-2 text-sm">
-                            Our mission is to empower students around the world to learn and grow through project-based programming, making hands-on learning accessible to everyone
+                            Our mission is to empower individuals worldwide with the knowledge and insights they need to navigate the world of crypto finance, making informed investing accessible to everyone.
                         </p>
                     </div>
 
@@ -19,7 +19,7 @@ function Footer() {
                         <ul className="mt-2 space-y-2">
                             <li>
                                 <a
-                                    href="#"
+                                    href="https://bullrunai.vercel.app/"
                                     className="hover:underline transition"
                                 >
                                     Home
@@ -27,7 +27,7 @@ function Footer() {
                             </li>
                             <li>
                                 <a
-                                    href="#"
+                                    href="https://www.linkedin.com/company/bullrunai/"
                                     className="hover:underline transition"
                                 >
                                     LinkedIn

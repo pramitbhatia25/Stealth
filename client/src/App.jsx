@@ -40,7 +40,7 @@ function App() {
         }}
       >
         <Router>
-          <div className={`${isDark && "dark"} flex w-full h-screen`}>
+          <div className={`${isDark && "dark"} flex w-full h-[100dvh]`}>
             <div className={`z-50 transition-all duration-300 ${isSidebarOpen ? "w-full md:w-[15dvw]" : "w-0"}`}>
               <Sidebar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
             </div>

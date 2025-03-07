@@ -51,6 +51,7 @@
     "react-spinners": "^0.15.0",
     "react-syntax-highlighter": "^15.6.1",
     "react-ts-tradingview-widgets": "^1.2.7",
+    "react-type-animation": "^3.2.0",
     "recharts": "^2.15.1",
     "rehype-highlight": "^7.0.1",
     "rollup-plugin-node-polyfills": "^0.2.1",
