@@ -6,7 +6,7 @@ import { NextUIProvider } from "@nextui-org/system";
 
 createRoot(document.getElementById("root")).render(
   <NextUIProvider>
-    <main className="text-foreground bg-background">
+    <main className="dark text-foreground bg-background">
       <App />
     </main>
   </NextUIProvider>

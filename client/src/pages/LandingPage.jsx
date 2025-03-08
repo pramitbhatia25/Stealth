@@ -54,7 +54,7 @@ function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
 
 
     return (
-        <div className="dark h-[100dvh] w-full bgcustom transition-colors duration-300">
+        <div className="dark h-full min-h-[100dvh] w-full bgcustom transition-colors duration-300">
             <div className="h-full w-full flex flex-col overflow-y-auto transition-colors duration-300">
                 <div className="h-fit">
                     <CustomNavbar isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
@@ -67,18 +67,19 @@ function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
                                 Free premium access for first 1,000 signups
                             </Chip>
 
-                            <h1 className="text-3xl md:text-5xl font-bold mb-6 text-center md:text-left text-gray-900 dark:text-gray-100 transition-colors duration-300">
-                                Decoding the future of
+                            <h1 className="text-3xl md:text-6xl font-bold mb-6 text-center md:text-left text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                                Analyse the future of
                                 <br />
                                 <span className="bg-gradient-to-r from-green-400 to-green-600 dark:from-green-300 dark:to-green-500 
                                       bg-clip-text text-transparent">
                                     <TypeAnimation
                                         sequence={[
                                             'Crypto Intelligence', 1000,
-                                            'Decentralized Finance', 1000,
-                                            'Crypto Markets', 1000,
-                                            'Sentiment Analysis', 1000,
-                                            'Predictive Trading Models', 1000
+                                            'Stock Markets', 1000,
+                                            'Bitcoin', 1000,
+                                            'NVDA', 1000,
+                                            'Ethereum', 1000,
+                                            'TSLA', 1000,
                                         ]}
                                         wrapper="span"
                                         speed={50}
@@ -89,7 +90,7 @@ function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
 
                             <p className="text-md md:text-xl mb-8 leading-relaxed 
                                 text-gray-400 text-center md:text-left">
-                                Master cryptocurrency markets with AI-powered analytics, real-time insights, and institutional-grade research tools.
+                                Master financial markets with AI-powered analytics, real-time insights, and institutional-grade research tools.
                             </p>
 
 
@@ -104,14 +105,14 @@ function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
                                         startContent={<MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />}
                                     />
                                     {registerLoading ? <>
-                                        <div className="flex gap-4 m-auto w-fit">
-                                            <Button className="md:w-[20%] w-fit text-sm p-3 bg-gradient-to-r from-green-900 to-green-700 hover:scale-105 duration-300 text-white rounded-lg font-semibold" >
+                                        <div className="flex gap-4 m-auto w-fit ">
+                                            <Button className="md:w-[150px] flex-shrink-0 w-fit text-sm p-3 bg-gradient-to-r from-green-900 to-green-700 hover:scale-105 duration-300 text-white rounded-lg font-semibold" >
                                                 Loading...
                                             </Button>
                                         </div>
                                     </> : <>
-                                        <button onClick={registerUser} className="md:w-[20%] w-fit text-sm p-3 bg-gradient-to-r from-green-900 to-green-700 hover:scale-105 duration-300 text-white rounded-lg font-semibold">
-                                            Get Started
+                                        <button onClick={registerUser} className="md:w-[150px] flex-shrink-0 w-fit text-sm p-3 bg-gradient-to-r from-green-900 to-green-700 hover:scale-105 duration-300 text-white rounded-lg font-semibold">
+                                            Join Waitlist
                                         </button>
                                     </>}
                                 </div>

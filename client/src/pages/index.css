@@ -1,3 +1,5 @@
 .bgcustom {
     background: url("../assets/bg2.png");
+    background-repeat: no-repeat;
+    background-size: cover;
 }

@@ -1,4 +1,4 @@
-import { Copy, ThumbsDown, ThumbsUp } from 'lucide-react';
+import { Copy, Sparkle, Sparkles, ThumbsDown, ThumbsUp } from 'lucide-react';
 import { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import Markdown from 'react-markdown'
 import { PulseLoader } from "react-spinners";
@@ -27,6 +27,7 @@ const MessageActions = ({ text }) => {
 
 
 const Chatbot = ({ extraWidgets, setExtraWidgets }) => {
+
     const [messages, setMessages] = useState([
     ]);
 
@@ -35,12 +36,30 @@ const Chatbot = ({ extraWidgets, setExtraWidgets }) => {
     const messagesEndRef = useRef(null);
     const inputRef = useRef(null)
 
-    const aiResponse = [
-        {
-            type: 'text',
-            text: "Hey Pramit! It looks like you're tackling some cool classification problems in your assignment! You're diving into song popularity on Spotify and how consumers respond to marketing campaigns. Here's a quick snapshot of what you’re working on: -  based on streaming counts. - You're analyzing how demographic and behavioral data influences consumer responses. - You're using algorithms like Neural Networks, K-Nearest Neighbors, and Support Vector Machines to draw insights. Ready to chat about your findings?",
-        }
+    const [placeholderText, setPlaceholderText] = useState('Which stock had the largest price variation today?');
+  
+    const placeholderOptions = [
+      'Which stock had the largest price variation today?',
+      'What are the latest trends in the crypto market?',
+      'How is Bitcoin performing today?',
+      'Tell me about the latest news in Ethereum.',
+      'What’s the current market status of NVDA?',
+      'What is the latest stock news for TSLA?',
+      'Show me the top 5 trending cryptocurrencies right now.',
     ];
+  
+    useEffect(() => {
+      const interval = setInterval(() => {
+        setPlaceholderText(prevText => {
+          const currentIndex = placeholderOptions.indexOf(prevText);
+          const nextIndex = (currentIndex + 1) % placeholderOptions.length;
+          return placeholderOptions[nextIndex];
+        });
+      }, 1000);
+  
+      return () => clearInterval(interval);
+    }, []);
+  
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -104,18 +123,17 @@ const Chatbot = ({ extraWidgets, setExtraWidgets }) => {
     return (
         <div className="flex flex-col h-full w-full">
             <div style={{ lineHeight: '1.8' }} className="flex-1 overflow-y-auto p-4 overflow-auto flex flex-col items-center">
-            <div className="bg-blue-50 p-4  my-4 rounded-lg text-sm text-blue-800 w-fit self-center">
-                <p className="font-semibold mb-2">Available Chart Types:</p>
-                <ul className="list-disc list-inside">
-                    <li>Symbol Info (with price and basic info)</li>
-                    <li>Advanced Real-Time Charts</li>
-                    <li>Cryptocurrency Market Overview</li>
-                    <li>Ticker Tape</li>
-                    <li>News Timeline</li>
-                    <li>Forex Cross Rates</li>
-                    <li>Crypto Coins Heatmap</li>
-                </ul>
-            </div>
+                <div className="bg-blue-50 p-4  my-5 rounded-lg text-sm text-blue-800 w-fit self-center">
+                    <p className="font-semibold mb-2">Try asking for these charts:</p>
+                    <ul className="list-disc list-inside">
+                        <li>Symbol Info (with price and basic info)</li>
+                        <li>Advanced Real-Time Charts</li>
+                        <li>Cryptocurrency Market Overview</li>
+                        <li>News Timeline</li>
+                        <li>Forex Cross Rates</li>
+                        <li>Crypto Coins Heatmap</li>
+                    </ul>
+                </div>
 
                 <div className='max-w-[800px] w-full'>
                     {messages.map((message) => (
@@ -139,14 +157,14 @@ const Chatbot = ({ extraWidgets, setExtraWidgets }) => {
             </div>
 
             <div className="pb-5 px-4 max-w-[800px] w-full mx-auto">
-                <form onSubmit={handleSubmit} className="relative">
+                <form onSubmit={handleSubmit} className="relative flex-grow">
                     <input
                         type="text"
                         ref={inputRef}
                         value={inputText}
                         onChange={(e) => setInputText(e.target.value)}
-                        placeholder="Ask about any stock or market..."
-                        className="w-full bg-white text-black rounded-lg py-2 pl-4 pr-16 text-sm border border-gray-200 focus:outline-none focus:ring-0 shadow-md rounded-bottom-shadow"
+                        placeholder={placeholderText}
+                        className="w-full bg-white text-black placeholder:text-[darkgreen] rounded-lg py-2 pl-4 pr-16 text-sm border border-gray-200 focus:outline-none focus:ring-0 shadow-md rounded-bottom-shadow"
                         disabled={aiTyping}
                     />
                     <button

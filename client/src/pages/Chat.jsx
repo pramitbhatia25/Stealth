@@ -19,6 +19,7 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
   const [extraWidgets, setExtraWidgets] = useState([]);
   const widgetsEndRef = useRef(null);
   const [selectedWidget, setSelectedWidget] = useState(null);
+  const [horizontalSplit, setHorizontalSplit] = useState([60, 40])
 
   const scrollToBottom = () => {
     widgetsEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -67,24 +68,24 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
 
   return (
     <div className="dark h-[100dvh] w-full bgcustom">
-      <div className="h-full w-full flex flex-col overflow-y-auto">
+      <div className="h-full w-full flex flex-col overflow-hidden">
         <div className="h-[55px] w-full overflow-hidden flex items-center">
           <CustomNavbar isDark={isDark} setIsDark={setIsDark} isSidebarOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
         </div>
         <div className="w-full h-[calc(100dvh-55px)] overflow-auto flex flex-col md:flex-row">
-          <div className="flex flex-col w-full md:w-[70%] h-[calc((100dvh-55px)/2)] md:h-[calc(100dvh-55px)]">
-            <div className="h-full flex flex-col overflow-y-auto p-5">
+          <div className={`flex flex-col w-full md:w-[${horizontalSplit[0]}%] overflow-hidden h-[calc((100dvh-55px)/0.55)] md:h-[calc(100dvh-55px)]`}>
+            <div className="h-full flex flex-col overflow-y-auto p-5  border-[gray] border-b md:border-r-0 md:border-b-0">
               <div className="h-full w-full">
 
                 {extraWidgets.length !== 0 &&
-                  <div className="border p-5">
+                  <div className=" p-3">
                     {extraWidgets.map(({ graph_type, symbol }, index) => {
                       const widgetData = componentsMap[graph_type]; // Get widget based on graph_type
                       if (!widgetData) return null;
 
                       const { component: WidgetComponent, defaultProps } = widgetData;
                       return (
-                        <div key={index} className="relative overflow-auto h-fit justify-center max-h-[280px] border rounded-xl my-2 scrollbar-hide">
+                        <div key={index} className="relative h-fit border justify-center max-h-[280px] rounded-xl my-2 scrollbar-hide overflow-hidden">
                           <button
                             onClick={() => setSelectedWidget({ type: graph_type, symbol })}
                             className="absolute top-2 right-2 bg-white/80 hover:bg-white p-1 rounded-lg shadow-md z-10"
@@ -103,7 +104,7 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
                 }
 
                 {extraWidgets.length == 0 && (
-                  <div className="border flex items-center justify-center h-full text-gray-500">
+                  <div className="flex items-center justify-center h-full text-gray-500 border-[gray] md:border-r">
                     Begin Chat To View Analysis
                   </div>
                 )}
@@ -111,7 +112,7 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
             </div>
           </div>
 
-          <div className="h-[calc((100dvh-55px)/2)] md:h-[calc(100dvh-55px)] flex flex-col w-full md:w-[30%] ">
+          <div className={`h-[calc((100dvh-55px)/0.45)] md:h-[calc(100dvh-55px)] overflow-hidden flex flex-col w-full md:w-[${horizontalSplit[1]}%]`}>
             <Chatbot extraWidgets={extraWidgets} setExtraWidgets={setExtraWidgets} />
           </div>
           

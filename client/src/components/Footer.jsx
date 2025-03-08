@@ -10,7 +10,7 @@ function Footer() {
                             <img src={LogoDark} alt="Brand Logo" className="h-full w-full" />
                         </div>
                         <p className="mt-2 text-sm">
-                            Our mission is to empower individuals worldwide with the knowledge and insights they need to navigate the world of crypto finance, making informed investing accessible to everyone.
+                            Our mission is to empower individuals worldwide with the knowledge and insights they need to navigate the world of finance, making informed investing accessible to everyone.
                         </p>
                     </div>
 
