@@ -1,5 +1,18 @@
 .bgcustom {
-    background: url("../assets/bg2.png");
+    background: 
+        linear-gradient(to bottom, rgba(0, 0, 0, 0) 20dvh, #0d0e10 100%), 
+        url("../assets/bg2.png");
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+    min-height: 100dvh;
+    width: 100%;
+    transition: background-color 0.3s;
+}
+
+.bgcustom2 {
+    background: #0d0e10;
+    min-height: 100dvh;
+    width: 100%;
+    transition: background-color 0.3s;
 }

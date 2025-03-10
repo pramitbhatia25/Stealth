@@ -1,3 +1,7 @@
 .custom_logo {
     font-family: "Space Grotesk";
 }
+
+.custombtn {
+    border: 1px solid red;
+}

@@ -3,11 +3,13 @@ import { BarChart, BarChart2, BarChart2Icon, BarChart3Icon, BarChart4Icon, BarCh
 import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "../assets/bullrun-light.jpeg";
 import LogoDark from "../assets/bullrun-dark.png";
+import { useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
 
 function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
     const location = useLocation();
     const navigate = useNavigate("");
     const isActive = (path) => location.pathname === path;
+    const isLoggedIn = useIsLoggedIn()
 
     function onBtnClick(link) {
         navigate(link);
@@ -18,14 +20,14 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
 
     return (
         <nav
-            className={`absolute left-0 top-0 h-full w-full md:w-[15dvw] bg-black transition-transform duration-300 overflow-hidden ${isSidebarOpen ? "transform-none" : "transform -translate-x-full"}`}
+            className={`absolute left-0 top-0 h-full w-full md:w-[15dvw] bg-[#0d0e10] transition-transform duration-300 overflow-hidden ${isSidebarOpen ? "transform-none" : "transform -translate-x-full"}`}
         >
             <div className="h-[55px] w-full bg-transparent flex flex-row justify-between items-center px-4">
                 <div className="flex flex-row">
-                    {isSidebarOpen && (
+                    {isSidebarOpen && isLoggedIn && (
                         <div
                             onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                            className={`w-fit h-fit my-auto md:hidden flex cursor-pointer flex items-center rounded-lg bg-transparent hover:bg-green-900 ml-2`}
+                            className={`w-fit h-fit my-auto flex cursor-pointer flex items-center rounded-lg bg-transparent ml-2`}
                         >
                             <PanelRightOpen
                                 size={20}
@@ -34,7 +36,7 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                         </div>
                     )}
                     {isSidebarOpen && (
-                        <div className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] w-[170px]">
+                        <div onClick={() => {navigate("/home")}} className="py-[2px] px-2 text-purple-500 font-bold text-xl cursor-pointer h-[46px] w-[130px] md:w-[170px]">
                             <img src={LogoDark} alt="Brand Logo" className="h-full w-full" />
                         </div>
                     )}
@@ -44,20 +46,20 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
             <ul className="space-y-2 p-4 h-[calc(100dvh-50px)] overflow-auto">
                 <li className="space-y-2">
                     <div
-                        onClick={() => { onBtnClick("/") }}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors dark:text-white light:text-black light:hover:text-black dark:hover:text-black ${isActive("/") ? "bg-white hover:bg-gray-200 dark:text-black" : "bg-transparent hover:bg-gray-200 text-white"}
+                        onClick={() => { onBtnClick("/home") }}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors  ${isActive("/home") ? "bg-white hover:bg-gray-200 text-black" : "bg-transparent hover:bg-gray-200 text-gray-200 hover:text-black"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
                         <Home color="gray" className="w-5 h-5 flex-shrink-0" />
-                        <span className="text-sm">Overview</span>
+                        <span className="text-sm">Home</span>
                     </div>
                     <div
-                        onClick={() => { onBtnClick("/dashboard") }}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors dark:text-white light:text-black light:hover:text-black dark:hover:text-black ${isActive("/dashboard") ? "bg-[#eceef2] hover:bg-gray-200 dark:text-black" : "bg-transparent hover:bg-gray-200 text-white"}
+                        onClick={() => { onBtnClick("/market") }}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors  ${isActive("/market") ? "bg-white hover:bg-gray-200 text-black" : "bg-transparent hover:bg-gray-200 text-gray-200 hover:text-black"}
                             } flex flex-row justify-start px-2 py-2`}
                     >
-                        <Bitcoin color="gray" className="w-5 h-5 flex-shrink-0" />
-                        <span className="text-sm">Crypto</span>
+                        <BarChart3Icon color="gray" className="w-5 h-5 flex-shrink-0" />
+                        <span className="text-sm">Market</span>
                     </div>
                     {/*
                     <div
@@ -71,11 +73,11 @@ function Sidebar({ isSidebarOpen, setIsSidebarOpen }) {
                     */}
                     <div
                         onClick={() => { onBtnClick("/chat") }}
-                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors text-black ${isActive("/chat") ? "bg-[#eceef2] hover:bg-gray-200" : "bg-transparent hover:bg-gray-200"}
+                        className={`flex cursor-pointer items-center gap-4 rounded-lg transition-colors  ${isActive("/chat") ? "bg-white hover:bg-gray-200 text-black" : "bg-transparent hover:bg-gray-200 text-gray-200 hover:text-black"}
                 } flex flex-row justify-start px-2 py-2`}
                     >
-                        <Sparkles className="w-5 h-5 flex-shrink-0 text-purple-500" />
-                        <span className="text-sm text-purple-500 font-bold">Chat</span>
+                        <Sparkles color="gray" className="w-5 h-5 flex-shrink-0" />
+                        <span className="text-sm">Chat</span>
                     </div>
                 </li>
             </ul>

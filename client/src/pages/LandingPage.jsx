@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { ArrowRight, MailIcon, Play, Rocket, Sparkles } from "lucide-react";
 import CustomNavbar from "../components/Navbar.jsx";
-import { DynamicConnectButton } from "@dynamic-labs/sdk-react-core";
+import { DynamicConnectButton, useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
 import { Button, Chip, Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader } from "@nextui-org/react";
 import { useEffect, useState } from "react";
 import register from "../components/register";
@@ -19,6 +19,16 @@ function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
     const toggleLoad = () => {
         setIsLoaded(!isLoaded);
     };
+
+    const isLoggedIn = useIsLoggedIn();
+    const navigate = useNavigate();
+  
+    useEffect(() => {
+      if (isLoggedIn) {
+        navigate("/home");
+      }
+    }, [isLoggedIn, navigate]);
+
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -62,12 +72,12 @@ function LandingPage({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
                     <div className="min-h-[90dvh] h-fit md:flex-row flex-col flex">
                         <div className="px-5 py-20 max-w-[100%] md:max-w-[65%] flex flex-col items-center md:items-start justify-center relative z-10">
 
-                            <Chip className="bg-gradient-to-r text-sm from-green-900 to-green-700 text-white rounded-lg mb-8">
+                            <Chip className="bg-gradient-to-r py-5 text-md from-green-900 to-green-700 text-white rounded-lg mb-8">
                                 <Rocket className="inline-block w-5 h-5 mr-2 text-green-600 text-green-300" />
                                 Free premium access for first 1,000 signups
                             </Chip>
 
-                            <h1 className="text-3xl md:text-6xl font-bold mb-6 text-center md:text-left text-gray-900 dark:text-gray-100 transition-colors duration-300">
+                            <h1 className="text-4xl md:text-7xl font-semibold mb-6 text-center md:text-left text-gray-900 dark:text-gray-100 transition-colors duration-300">
                                 Analyse the future of
                                 <br />
                                 <span className="bg-gradient-to-r from-green-400 to-green-600 dark:from-green-300 dark:to-green-500 

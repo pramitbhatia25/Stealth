@@ -1,4 +1,4 @@
-import { Maximize, PanelRightClose, PanelRightOpen, Search, SquarePen } from "lucide-react";
+import { Maximize } from "lucide-react";
 import "./index.css";
 import {
   AdvancedRealTimeChart,
@@ -7,17 +7,16 @@ import {
   ForexCrossRates,
   StockHeatmap,
   SymbolInfo,
-  TickerTape,
   Timeline,
 } from "react-ts-tradingview-widgets";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import Chatbot from "../components/Chatbot";
+import ChatbotDemo from "../components/ChatbotDemo";
 import CustomTickerTape from "../components/CustomTickerTape";
 import CustomNavbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
 import { useIsLoggedIn } from "@dynamic-labs/sdk-react-core";
+import { useNavigate } from "react-router-dom";
 
-function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
+function ChatDemo({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
   const [extraWidgets, setExtraWidgets] = useState([]);
   const widgetsEndRef = useRef(null);
   const [selectedWidget, setSelectedWidget] = useState(null);
@@ -32,17 +31,6 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
       scrollToBottom();
     }, 2000);
   }, [extraWidgets]);
-
-  const isLoggedIn = useIsLoggedIn();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!isLoggedIn) {
-      setIsSidebarOpen(false)
-      navigate("/");
-    }
-  }, [isLoggedIn, navigate]);
-
 
   // Components map with default props
   const componentsMap = {
@@ -78,6 +66,17 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
       defaultProps: { colorTheme: "dark", height: 250, width: "100%" },
     }
   };
+
+  const isLoggedIn = useIsLoggedIn();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isLoggedIn) {
+      navigate("/chat");
+    }
+  }, [isLoggedIn, navigate]);
+
+
 
   return (
     <div className="dark h-[100dvh] w-full bgcustom2">
@@ -126,7 +125,7 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
           </div>
 
           <div className={`h-[calc((100dvh-55px)/0.45)] md:h-[calc(100dvh-55px)] overflow-hidden flex flex-col w-full md:w-[${horizontalSplit[1]}%]`}>
-            <Chatbot extraWidgets={extraWidgets} setExtraWidgets={setExtraWidgets} />
+            <ChatbotDemo extraWidgets={extraWidgets} setExtraWidgets={setExtraWidgets} />
           </div>
           
           {selectedWidget && (
@@ -174,4 +173,4 @@ function Chat({ isDark, setIsDark, isSidebarOpen, setIsSidebarOpen }) {
   );
 }
 
-export default Chat;
+export default ChatDemo;
