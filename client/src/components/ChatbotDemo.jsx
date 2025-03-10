@@ -40,6 +40,7 @@ const ChatbotDemo = ({ extraWidgets, setExtraWidgets }) => {
     const [value, setValue] = useState("");
 
     const handleSelectionChange = (e) => {
+        console.log(e.target.value)
         setValue(e.target.value);
     };
     
@@ -154,13 +155,13 @@ const ChatbotDemo = ({ extraWidgets, setExtraWidgets }) => {
                 <Select
                     className="w-[70%]"
                     placeholder="Select a query"
-                    aria-label=""
+                    aria-label="hi"
                     selectedKeys={[value]}
                     variant="bordered"
                     onChange={handleSelectionChange}
                 >
                     {placeholderOptions.map((option) => (
-                        <SelectItem aria-label="" key={option.label}>{option.label}</SelectItem>
+                        <SelectItem aria-label="hi" key={option.label}>{option.label}</SelectItem>
                     ))}
                 </Select>
 
