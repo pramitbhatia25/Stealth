@@ -42,7 +42,7 @@ const ChatbotDemo = ({ extraWidgets, setExtraWidgets }) => {
     const handleSelectionChange = (e) => {
         setValue(e.target.value);
     };
-
+    
     const placeholderOptions = [
         { key: "1", label: 'Which stock had the largest price variation today?' },
         { key: "2", label: 'What are the latest trends in the crypto market?' },
@@ -154,18 +154,19 @@ const ChatbotDemo = ({ extraWidgets, setExtraWidgets }) => {
                 <Select
                     className="w-[70%]"
                     placeholder="Select a query"
+                    aria-label=""
                     selectedKeys={[value]}
                     variant="bordered"
                     onChange={handleSelectionChange}
                 >
                     {placeholderOptions.map((option) => (
-                        <SelectItem key={option.key}>{option.label}</SelectItem>
+                        <SelectItem aria-label="" key={option.label}>{option.label}</SelectItem>
                     ))}
                 </Select>
 
                 <button
                     onClick={handleSubmit}
-                    className="w-fit max-w-[30%] bg-purple-500 text-white p-1 px-3 rounded-lg transition-colors flex items-center gap-2"
+                    className="w-fit max-w-[30%] text-white p-1 px-3 cursor-pointer md:w-[100px] min-w-fit flex-shrink-0 w-fit text-sm p-2 text-center bg-gradient-to-r from-green-900 to-green-700 hover:scale-105 duration-300 text-white rounded-lg font-semibold"
                     disabled={aiTyping}
                 >
                     Submit
